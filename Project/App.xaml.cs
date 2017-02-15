@@ -13,5 +13,15 @@ namespace Project
     /// </summary>
     public partial class App : Application
     {
+        // When the application is run, we need to decide which Window to open.
+        //  This will depend on a number of factors, including:
+        //      # First Run or not
+        //      # Google Sign In is valid
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            new MainWindow().Show();
+        }
     }
 }
