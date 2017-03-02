@@ -1,0 +1,24 @@
+﻿<Window x:Class="Project.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project"
+        mc:Ignorable="d"
+        Title="AboutWindow" MinHeight="300" MinWidth="300"
+        MaxHeight="700" MaxWidth="300"
+        SizeToContent="Height">
+    <Grid>
+        <ScrollViewer VerticalAlignment="Top"
+                      HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Auto"
+                      Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                      Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+            <TextBlock x:Name="txtAbout" TextWrapping="Wrap" Text="" 
+                       Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                       Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}" FontFamily="Roboto" FontSize="16" Margin="5" Foreground="White"/>
+
+        </ScrollViewer>
+
+    </Grid>
+</Window>

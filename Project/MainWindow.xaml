@@ -6,13 +6,29 @@
         xmlns:local="clr-namespace:Project"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="Password Manager" MinHeight="350" MinWidth="525"
+        Title="PassSafe" MinHeight="350" MinWidth="525"
                       
         ResizeMode="CanMinimize"
                       
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" BorderThickness="1" TitleCaps="False">
     <Grid>
-        <Label x:Name="label" Content="This is the test app!" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="_File" Name="menuFile">
+                    <MenuItem Header="_Open" Name="menuFile_Open"/>
+                    <MenuItem Header="_Close" Name="menuFile_Close"/>
+                    <MenuItem Header="_Exit" Name="menuFile_Exit"/>
+                </MenuItem>
+                <MenuItem Header="_Edit" Name="menuEdit">
+                    
+                </MenuItem>
+                <MenuItem Header="_Help" Name="menuHelp">
+                    <MenuItem Header="_About" Name="menuHelp_About" />
+                    <Separator/>
+                    <MenuItem Header="_Logout" Name="menuHelp_Logout" />
+                </MenuItem>
+            </Menu>
+            <StackPanel></StackPanel>
+        </DockPanel>
     </Grid>
 </Controls:MetroWindow>
