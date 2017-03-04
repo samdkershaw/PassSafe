@@ -5,13 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Project
+namespace PassSafe
 {
     public class Core
     {
         public static void PrintErrorToFile(string msg)
         {
-            string logLocation = GetAppDirectory() + @"\Log.txt";
+            string logLocation = GetAppDirectory() + @"Log.txt";
             try
             {
                 using (StreamWriter file = new StreamWriter(logLocation))
@@ -25,11 +25,11 @@ namespace Project
             }
         }
 
-        static string GetAppDirectory()
+        public static string GetAppDirectory()
         {
             try
             {
-                return AppDomain.CurrentDomain.BaseDirectory;
+                return AppDomain.CurrentDomain.BaseDirectory + @"\";
             }
             catch (Exception e)
             {

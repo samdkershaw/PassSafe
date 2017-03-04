@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 
-namespace Project
+namespace PassSafe
 {
     /// <summary>
     /// Interaction logic for SplashScreen.xaml

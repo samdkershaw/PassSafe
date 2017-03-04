@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 
-namespace Project
+namespace PassSafe
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

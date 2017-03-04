@@ -10,7 +10,7 @@ using Org.BouncyCastle.Crypto.Modes;
 using Org.BouncyCastle.Crypto.Paddings;
 using Org.BouncyCastle.Crypto.Parameters;
 
-namespace Project.Encryption
+namespace PassSafe.Encryption
 {
     class EncryptionBase<TBlockCipher, TDigest>
         where TBlockCipher : IBlockCipher, new()
