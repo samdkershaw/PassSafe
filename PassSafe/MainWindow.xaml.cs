@@ -28,12 +28,30 @@ namespace PassSafe
             // Set up OnClick listeners for the menu bar.
             menuFile_Exit.Click += MenuFile_Exit_Click;
             menuHelp_About.Click += MenuHelp_About_Click;
+            menuHelp_Settings.Click += MenuHelp_Settings_Click;
             this.Closing += MainWindow_Closing;
+        }
+
+        private void Update()
+        {
+            // Update the page, data stores etc.
+        }
+
+        private void MenuHelp_Settings_Click(object sender, RoutedEventArgs e)
+        {
+            new SettingsWindow().ShowDialog();
+            Update();
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            this.ConfirmExit();
+            MessageBoxResult reallyQuit = MessageBox.Show("Are you sure you want to quit?",
+                "Really Quit?",
+                MessageBoxButton.YesNo);
+            if (reallyQuit == MessageBoxResult.Yes)
+                Application.Current.Shutdown();
+            else
+                e.Cancel = true;
         }
 
         private void MenuHelp_About_Click(object sender, RoutedEventArgs e)
@@ -43,16 +61,7 @@ namespace PassSafe
 
         private void MenuFile_Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.ConfirmExit();
-        }
-
-        private void ConfirmExit()
-        {
-            MessageBoxResult reallyQuit = MessageBox.Show("Are you sure you want to quit?",
-                "Really Quit?",
-                MessageBoxButton.YesNo);
-            if (reallyQuit == MessageBoxResult.Yes)
-                Application.Current.Shutdown();
+            Close();
         }
     }
 }
