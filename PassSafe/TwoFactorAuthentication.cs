@@ -9,6 +9,5 @@ namespace PassSafe
 {
     class TwoFactorAuthentication
     {
-        
     }
 }
