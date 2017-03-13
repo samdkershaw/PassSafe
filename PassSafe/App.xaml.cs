@@ -5,6 +5,8 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Timers;
+using System.Windows.Threading;
 
 namespace PassSafe
 {
@@ -17,14 +19,24 @@ namespace PassSafe
         //  This will depend on a number of factors, including:
         //      # First Run or not
         //      # Google Sign In is valid
+
+        private delegate void updateDelegate();
+
+        private bool isFirstTimeUser;
+        Timer t;
+
+        //Windows
+        SplashScreen splashScreen;
+        MainWindow mainWindow;
+        
         protected override void OnStartup(StartupEventArgs e)
         {
-            const int MIN_SPLASH_TIME = 4000;
+            /*const int MIN_SPLASH_TIME = 4000;
             base.OnStartup(e);
 
-            /*SplashScreen screen = new SplashScreen("SplashScreen.png");
+            SplashScreen screen = new SplashScreen("SplashScreen.png");
             screen.Show(false);
-            screen.Close(TimeSpan.FromSeconds(5));*/
+            screen.Close(TimeSpan.FromSeconds(5));
 
             SplashScreen screen = new SplashScreen();
             screen.Show();
@@ -40,7 +52,44 @@ namespace PassSafe
             }
 
             screen.Close();
-            mainWindow.Show();
+            mainWindow.Show();*/
+
+            base.OnStartup(e);
+
+            t = new Timer();
+            t.Interval = 5000;
+            t.Elapsed += T_Elapsed;
+
+            splashScreen = new SplashScreen();
+            splashScreen.Show();
+            t.Start();
+
+            mainWindow = new MainWindow();
+        }
+
+        private bool IsFirstTimeUser()
+        {
+            return !(FileIO.FileExistsInAppDirectory("user.db"));
+        }
+
+        private void T_Elapsed(object sender, ElapsedEventArgs args)
+        {
+            Dispatcher.BeginInvoke(
+          DispatcherPriority.Background,
+          new Action(() => this.TimerElapsed()));
+            t.Dispose();
+        }
+
+        private void TimerElapsed()
+        {
+            splashScreen.Close();
+            if (isFirstTimeUser)
+            {
+                mainWindow.Show();
+            } else
+            {
+                mainWindow.Show();
+            }
         }
     }
 }

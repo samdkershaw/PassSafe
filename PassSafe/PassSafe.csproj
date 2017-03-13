@@ -132,6 +132,7 @@
       <DependentUpon>AddPasswordWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Encryption\HashFactory.cs" />
+    <Compile Include="FileIO.cs" />
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

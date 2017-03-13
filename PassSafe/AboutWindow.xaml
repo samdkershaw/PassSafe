@@ -12,7 +12,7 @@
     <Grid>
         <ScrollViewer VerticalAlignment="Top"
                       HorizontalScrollBarVisibility="Hidden"
-                      VerticalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Hidden"
                       Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
                       Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
             <TextBlock x:Name="txtAbout" TextWrapping="Wrap" Text="" 
