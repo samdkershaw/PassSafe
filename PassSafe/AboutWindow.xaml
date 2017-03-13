@@ -6,18 +6,16 @@
         xmlns:local="clr-namespace:PassSafe"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
-        Title="AboutWindow" MinHeight="300" MinWidth="300"
-        MaxHeight="700" MaxWidth="300"
-        SizeToContent="Height">
+        Title="About PassSafe"
+                      TitleCaps="False"
+        ResizeMode="NoResize" SizeToContent="WidthAndHeight">
     <Grid>
         <ScrollViewer VerticalAlignment="Top"
                       HorizontalScrollBarVisibility="Hidden"
-                      VerticalScrollBarVisibility="Hidden"
-                      Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                      Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}">
+                      VerticalScrollBarVisibility="Hidden">
             <TextBlock x:Name="txtAbout" TextWrapping="Wrap" Text="" 
-                       Height="{Binding Parent.ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
-                       Width="{Binding Parent.ActualWidth, Mode=OneWay, RelativeSource={RelativeSource Self}}" FontFamily="Roboto" FontSize="16" Margin="5" Foreground="White"/>
+                        FontFamily="Roboto" FontSize="12" Margin="5" Foreground="White"
+                       MaxWidth="300"/>
 
         </ScrollViewer>
 

@@ -76,7 +76,7 @@ namespace PassSafe
         {
             Dispatcher.BeginInvoke(
           DispatcherPriority.Background,
-          new Action(() => this.TimerElapsed()));
+          new Action(() => TimerElapsed()));
             t.Dispose();
         }
 
