@@ -31,30 +31,18 @@ namespace PassSafe
         
         protected override void OnStartup(StartupEventArgs e)
         {
-            /*const int MIN_SPLASH_TIME = 4000;
             base.OnStartup(e);
 
-            SplashScreen screen = new SplashScreen("SplashScreen.png");
-            screen.Show(false);
-            screen.Close(TimeSpan.FromSeconds(5));
-
-            SplashScreen screen = new SplashScreen();
-            screen.Show();
-            System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
-            timer.Start();
-
-            MainWindow mainWindow = new MainWindow();
-            timer.Stop();
-            int timeRemaining = MIN_SPLASH_TIME - (int)timer.ElapsedMilliseconds;
-            if (timeRemaining > 0)
+            if (System.Diagnostics.Process.GetProcessesByName(
+                System.IO.Path.GetFileNameWithoutExtension(
+                    System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
             {
-                System.Threading.Thread.Sleep(timeRemaining);
+                MessageBoxResult reallyQuit = MessageBox.Show("Another instance of PassSafe is already running.",
+                "PassSafe",
+                MessageBoxButton.OK);
+                if (reallyQuit == MessageBoxResult.OK)
+                    Current.Shutdown();
             }
-
-            screen.Close();
-            mainWindow.Show();*/
-
-            base.OnStartup(e);
 
             t = new Timer();
             t.Interval = 5000;

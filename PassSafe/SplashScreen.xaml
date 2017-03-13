@@ -15,8 +15,7 @@
         ShowDialogsOverTitleBar="False"
         Height="136.764" Width="300" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,164">
-        <Image x:Name="image" HorizontalAlignment="Left" Width="300" Source="SplashScreen.png" Margin="0,0,0,-157" Height="287" VerticalAlignment="Top" RenderTransformOrigin="0.702,0.945"/>
-        <Controls:ProgressRing HorizontalAlignment="Center" Margin="136,101,133,-132" VerticalAlignment="Stretch" Height="Auto" Width="31"/>
-
+        <Image x:Name="image" HorizontalAlignment="Left" Width="300" Source="SplashScreen.png" Margin="0,0,0,-145" Height="145" VerticalAlignment="Top" RenderTransformOrigin="0.702,0.945"/>
+        <Controls:ProgressRing HorizontalAlignment="Center" Margin="136,101,133,-132" VerticalAlignment="Stretch" Height="Auto" Width="31" Foreground="#DDDDDD"/>
     </Grid>
 </Controls:MetroWindow>

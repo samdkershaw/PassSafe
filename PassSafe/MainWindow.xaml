@@ -20,7 +20,7 @@
                     <MenuItem Header="_Exit" Name="menuFile_Exit"/>
                 </MenuItem>
                 <MenuItem Header="_Edit" Name="menuEdit">
-                    
+                    <MenuItem Header="_Purge Password Database" Name="menuEdit_Purge" />
                 </MenuItem>
                 <MenuItem Header="_Help" Name="menuHelp">
                     <MenuItem Header="_About" Name="menuHelp_About" />
@@ -29,7 +29,27 @@
                     <MenuItem Header="_Logout" Name="menuHelp_Logout" />
                 </MenuItem>
             </Menu>
-            <StackPanel></StackPanel>
+            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
+                <ListBox x:Name="servicesList" Width="230">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20" />
+                                    <ColumnDefinition Width="80" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding ImagePath}" />
+                                <TextBlock Grid.Column="1"  Text="{Binding Title}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid Width="527">
+                    <Button x:Name="button" Content="Delete This Service" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="119"/>
+
+                </Grid>
+
+            </StackPanel>
         </DockPanel>
     </Grid>
 </Controls:MetroWindow>
