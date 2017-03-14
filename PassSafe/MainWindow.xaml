@@ -29,14 +29,27 @@
                     <MenuItem Header="_Logout" Name="menuHelp_Logout" />
                 </MenuItem>
             </Menu>
-            <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
-                <ListBox x:Name="servicesList" Width="230">
+            <Grid HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
+                <ListBox Grid.Column="0" x:Name="servicesList" Background="#CCCCCC">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
+                            <DataTemplate.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Padding" Value="5"/>
+                                </Style>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Padding" Value="5" />
+                                    <Setter Property="Height" Value="5" />
+                                </Style>
+                            </DataTemplate.Resources>
                             <Grid Margin="0,2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="20" />
-                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="5*" />
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="0" Source="{Binding ImagePath}" />
                                 <TextBlock Grid.Column="1"  Text="{Binding Title}" />
@@ -44,12 +57,13 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <Grid Width="527">
-                    <Button x:Name="button" Content="Delete This Service" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="119"/>
-
+                <Grid Grid.Column="1" Background="#EEEEEE">
+                    <Button x:Name="button" Content="DELETE THIS SERVICE" 
+                            HorizontalAlignment="Left" Margin="10,10,0,0" 
+                            VerticalAlignment="Top" Width="154" Style="{StaticResource MetroFlatButton}"/>
                 </Grid>
 
-            </StackPanel>
+            </Grid>
         </DockPanel>
     </Grid>
 </Controls:MetroWindow>
