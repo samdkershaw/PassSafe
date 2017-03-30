@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.IO;
+using System.Security;
+using System.Security.Cryptography;
 
 namespace PassSafe
 {
@@ -15,14 +17,13 @@ namespace PassSafe
 
         // Database Variables
 
-
         static DatabaseManager()
         {
         }
 
         private DatabaseManager()
         {
-            databaseLocation = Core.GetAppDirectory() + @"\res\database.db3";
+            databaseLocation = @"Resources\db.sqlite";
         }
 
         public static DatabaseManager GetDatabaseManager

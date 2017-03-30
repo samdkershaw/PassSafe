@@ -32,8 +32,10 @@ namespace PassSafe
             menuHelp_Settings.Click += MenuHelp_Settings_Click;
             Closing += MainWindow_Closing;
 
-            List<ServicesListItem> items = new List<ServicesListItem>();
-            items.Add(new ServicesListItem() { Title = "Facebook", ImagePath = @"Resources\facebook.png" });
+            List<ServicesListItem> items = new List<ServicesListItem>()
+            {
+                new ServicesListItem() { Title = "Facebook", ImagePath = @"Resources\facebook.png" }
+            };
             servicesList.ItemsSource = items;
             servicesList.Items.Clear();
         }

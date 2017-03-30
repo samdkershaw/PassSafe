@@ -133,6 +133,9 @@
     </Compile>
     <Compile Include="Encryption\HashFactory.cs" />
     <Compile Include="FileIO.cs" />
+    <Compile Include="NewUserWindow.xaml.cs">
+      <DependentUpon>NewUserWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="NewUserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

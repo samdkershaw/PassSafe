@@ -33,26 +33,28 @@ namespace PassSafe
         {
             base.OnStartup(e);
 
-            if (System.Diagnostics.Process.GetProcessesByName(
-                System.IO.Path.GetFileNameWithoutExtension(
-                    System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
-            {
-                MessageBoxResult reallyQuit = MessageBox.Show("Another instance of PassSafe is already running.",
-                "PassSafe",
-                MessageBoxButton.OK);
-                if (reallyQuit == MessageBoxResult.OK)
-                    Current.Shutdown();
-            }
+            new NewUserWindow().Show();
 
-            t = new Timer();
-            t.Interval = 5000;
-            t.Elapsed += T_Elapsed;
+            //if (System.Diagnostics.Process.GetProcessesByName(
+            //    System.IO.Path.GetFileNameWithoutExtension(
+            //        System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
+            //{
+            //    MessageBoxResult reallyQuit = MessageBox.Show("Another instance of PassSafe is already running.",
+            //    "PassSafe",
+            //    MessageBoxButton.OK);
+            //    if (reallyQuit == MessageBoxResult.OK)
+            //        Current.Shutdown();
+            //}
 
-            splashScreen = new SplashScreen();
-            splashScreen.Show();
-            t.Start();
+            //t = new Timer();
+            //t.Interval = 5000;
+            //t.Elapsed += T_Elapsed;
 
-            mainWindow = new MainWindow();
+            //splashScreen = new SplashScreen();
+            //splashScreen.Show();
+            //t.Start();
+
+            //mainWindow = new MainWindow();
         }
 
         private bool IsFirstTimeUser()
