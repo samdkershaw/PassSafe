@@ -1,4 +1,4 @@
-﻿<Controls:MetroWindow x:Class="PassSafe.SplashScreen"
+﻿<Controls:MetroWindow x:Class="PassSafe.Views.SplashScreen"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +15,7 @@
         ShowDialogsOverTitleBar="False"
         Height="136.764" Width="300" AllowsTransparency="True" WindowStartupLocation="CenterScreen">
     <Grid Margin="0,0,0,164">
-        <Image x:Name="image" HorizontalAlignment="Left" Width="300" Source="SplashScreen.png" Margin="0,0,0,-145" Height="145" VerticalAlignment="Top" RenderTransformOrigin="0.702,0.945"/>
+        <Image x:Name="image" HorizontalAlignment="Left" Width="300" Source="PassSafe/Resources/SplashScreen.png" Margin="0,0,0,-145" Height="145" VerticalAlignment="Top" RenderTransformOrigin="0.702,0.945"/>
         <Controls:ProgressRing HorizontalAlignment="Center" Margin="136,101,133,-132" VerticalAlignment="Stretch" Height="Auto" Width="31" Foreground="#DDDDDD"/>
     </Grid>
 </Controls:MetroWindow>

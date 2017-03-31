@@ -10,17 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
-namespace PassSafe.Pages
+namespace PassSafe.Views
 {
     /// <summary>
-    /// Interaction logic for Settings2faPage.xaml
+    /// Interaction logic for NewUserWindow.xaml
     /// </summary>
-    public partial class Settings2faPage : Page
+    public partial class NewUserWindow : MetroWindow
     {
-        public Settings2faPage()
+        public NewUserWindow()
         {
             InitializeComponent();
         }

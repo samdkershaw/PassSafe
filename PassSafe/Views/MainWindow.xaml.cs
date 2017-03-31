@@ -12,9 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using PassSafe.Views;
+using PassSafe.ViewModels;
 using MahApps.Metro.Controls;
 
-namespace PassSafe
+namespace PassSafe.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -29,15 +31,13 @@ namespace PassSafe
             menuFile_Exit.Click += MenuFile_Exit_Click;
             menuEdit_Purge.Click += MenuEdit_Purge_Click;
             menuHelp_About.Click += MenuHelp_About_Click;
-            menuHelp_Settings.Click += MenuHelp_Settings_Click;
             Closing += MainWindow_Closing;
 
             List<ServicesListItem> items = new List<ServicesListItem>()
             {
-                new ServicesListItem() { Title = "Facebook", ImagePath = @"Resources\facebook.png" }
+                new ServicesListItem() { Title = "Facebook", ImagePath = @"PassSafe\Resources\facebook.png" }
             };
             servicesList.ItemsSource = items;
-            servicesList.Items.Clear();
         }
 
         private void MenuEdit_Purge_Click(object sender, RoutedEventArgs e)
@@ -58,12 +58,6 @@ namespace PassSafe
         {
             // Update the page, data stores etc.
             MessageBox.Show("Update");
-        }
-
-        private void MenuHelp_Settings_Click(object sender, RoutedEventArgs e)
-        {
-            new SettingsWindow().ShowDialog();
-            Update();
         }
 
         private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)

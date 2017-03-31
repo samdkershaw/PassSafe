@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Timers;
 using System.Windows.Threading;
+using PassSafe.Views;
 
 namespace PassSafe
 {
@@ -26,14 +27,15 @@ namespace PassSafe
         Timer t;
 
         //Windows
-        SplashScreen splashScreen;
+        Views.SplashScreen splashScreen;
         MainWindow mainWindow;
         
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            new NewUserWindow().Show();
+            mainWindow = new MainWindow();
+            mainWindow.Show();
 
             //if (System.Diagnostics.Process.GetProcessesByName(
             //    System.IO.Path.GetFileNameWithoutExtension(
@@ -55,31 +57,6 @@ namespace PassSafe
             //t.Start();
 
             //mainWindow = new MainWindow();
-        }
-
-        private bool IsFirstTimeUser()
-        {
-            return !(FileIO.FileExistsInAppDirectory("user.db"));
-        }
-
-        private void T_Elapsed(object sender, ElapsedEventArgs args)
-        {
-            Dispatcher.BeginInvoke(
-          DispatcherPriority.Background,
-          new Action(() => TimerElapsed()));
-            t.Dispose();
-        }
-
-        private void TimerElapsed()
-        {
-            splashScreen.Close();
-            if (isFirstTimeUser)
-            {
-                mainWindow.Show();
-            } else
-            {
-                mainWindow.Show();
-            }
         }
     }
 }

@@ -13,16 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 
-namespace PassSafe
+namespace PassSafe.Views
 {
     /// <summary>
-    /// Interaction logic for NewUserWindow.xaml
+    /// Interaction logic for AboutWindow.xaml
     /// </summary>
-    public partial class NewUserWindow : MetroWindow
+    public partial class AboutWindow : MetroWindow
     {
-        public NewUserWindow()
+        public AboutWindow()
         {
             InitializeComponent();
+
+            txtAbout.Text = Properties.Resources.ResourceManager.GetString("About");
         }
     }
 }
