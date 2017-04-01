@@ -33,10 +33,11 @@ namespace PassSafe.Views
             menuHelp_About.Click += MenuHelp_About_Click;
             Closing += MainWindow_Closing;
 
-            List<ServicesListItem> items = new List<ServicesListItem>()
+            List<ServicesListItem> items = new List<ServicesListItem>();
+            for (int i = 0; i < 20; i++)
             {
-                new ServicesListItem() { Title = "Facebook", ImagePath = @"PassSafe\Resources\facebook.png" }
-            };
+                items.Add(new ServicesListItem() { Title="Test " + i, ImagePath="" });
+            }
             servicesList.ItemsSource = items;
         }
 
@@ -46,7 +47,6 @@ namespace PassSafe.Views
                 "Purge Database", MessageBoxButton.YesNo);
             if (msg == MessageBoxResult.Yes)
             {
-                //Core.Purge();
                 Update();
             } else
             {

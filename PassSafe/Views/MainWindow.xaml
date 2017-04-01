@@ -3,11 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:PassSafe"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
         mc:Ignorable="d"
-        Title="PassSafe" MinHeight="350" MinWidth="525" 
+        Title="PassSafe" MinHeight="400" MinWidth="600" 
+        MaxHeight="400" MaxWidth="600"
         ResizeMode="CanMinimize"             
         WindowStartupLocation="CenterScreen" BorderThickness="1" TitleCaps="False"
         DataContext="{DynamicResource ViewModelMainWindow}">
@@ -35,7 +35,7 @@
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
                 <ListBox Grid.Column="0" x:Name="servicesList" Background="#CCCCCC">
                     <ListBox.ItemTemplate>

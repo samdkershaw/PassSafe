@@ -28,15 +28,6 @@ namespace PassSafe.Models
         string _UserName;
         public string UserName { get; set; }
 
-        SecureString _Password;
-        public SecureString Password
-        {
-            get
-            {
-                return _Password.
-            }
-        }
-
         void RaisePropertyChanged(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
