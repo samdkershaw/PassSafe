@@ -22,18 +22,15 @@ namespace PassSafe.ViewModels
             {
                 if (_SelectedService != value)
                 {
-                    _SelectedService = value;
-                    RaisePropertyChanged("SelectedService");
+                    SetProperty(ref _SelectedService, value);
                 }
             }
         }
 
         public ViewModelMainWindow()
         {
-            Services = new ObservableCollection<Service>
-            {
-                new Models.Service { ServiceName="facebook" },
-            };
+            Data.Database db = new Data.Database();
+            Services = new ObservableCollection<Service>(db.GetServices());
         }
     }
 }

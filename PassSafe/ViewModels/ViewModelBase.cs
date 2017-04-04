@@ -2,40 +2,31 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Windows.Threading;
-using System.Windows;
+using System.Threading.Tasks;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace PassSafe.ViewModels
 {
-    class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : INotifyPropertyChanged
     {
-        internal void RaisePropertyChanged(string property)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
-        }
         public event PropertyChangedEventHandler PropertyChanged;
 
-        bool? _CloseWindowFlag;
-        public bool? CloseWindowFlag
+        protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
         {
-            get { return _CloseWindowFlag; }
-            set
+            if (Equals(storage, value))
             {
-                _CloseWindowFlag = value;
-                RaisePropertyChanged("CloseWindowFlag");
+                return false;
             }
+
+            storage = value;
+            this.OnPropertyChanged(propertyName);
+            return true;
         }
 
-        public virtual void CloseWindow(bool? result = true)
+        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            Application.Current.Dispatcher.BeginInvoke
-                (DispatcherPriority.Background, new Action(() =>
-                {
-                    CloseWindowFlag = CloseWindowFlag == null
-                    ? true
-                    : !CloseWindowFlag;
-                }));
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

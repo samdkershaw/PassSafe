@@ -26,65 +26,6 @@ namespace PassSafe.Views
         public MainWindow()
         {
             InitializeComponent();
-
-            // Set up OnClick listeners for the menu bar.
-            menuFile_Exit.Click += MenuFile_Exit_Click;
-            menuEdit_Purge.Click += MenuEdit_Purge_Click;
-            menuHelp_About.Click += MenuHelp_About_Click;
-            Closing += MainWindow_Closing;
-
-            List<ServicesListItem> items = new List<ServicesListItem>();
-            for (int i = 0; i < 20; i++)
-            {
-                items.Add(new ServicesListItem() { Title="Test " + i, ImagePath="" });
-            }
-            servicesList.ItemsSource = items;
         }
-
-        private void MenuEdit_Purge_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult msg = MessageBox.Show(@"Are you sure you want to do this? It's irreversible.",
-                "Purge Database", MessageBoxButton.YesNo);
-            if (msg == MessageBoxResult.Yes)
-            {
-                Update();
-            } else
-            {
-                return;
-            }
-        }
-
-        private void Update(bool updateDatabase = true)
-        {
-            // Update the page, data stores etc.
-            MessageBox.Show("Update");
-        }
-
-        private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            MessageBoxResult reallyQuit = MessageBox.Show("Are you sure you want to quit?",
-                "Really Quit?",
-                MessageBoxButton.YesNo);
-            if (reallyQuit == MessageBoxResult.Yes)
-                Application.Current.Shutdown();
-            else
-                e.Cancel = true;
-        }
-
-        private void MenuHelp_About_Click(object sender, RoutedEventArgs e)
-        {
-            new AboutWindow().ShowDialog();
-        }
-
-        private void MenuFile_Exit_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-    }
-
-    class ServicesListItem
-    {
-        public string Title { get; set; }
-        public string ImagePath { get; set; }
     }
 }

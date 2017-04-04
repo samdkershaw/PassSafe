@@ -25,8 +25,39 @@ namespace PassSafe.Models
             }
         }
 
+        string _Email;
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            } set
+            {
+                if (Core.IsEmailAcceptable(value))
+                    _Email = value;
+            }
+        }
+
         string _UserName;
-        public string UserName { get; set; }
+        public string UserName
+        {
+            get
+            {
+                return _UserName;
+            } set
+            {
+
+            }
+        }
+
+        SecureString _Password;
+        public SecureString Password
+        {
+            set
+            {
+                _Password = value;
+            }
+        }
 
         void RaisePropertyChanged(string prop)
         {

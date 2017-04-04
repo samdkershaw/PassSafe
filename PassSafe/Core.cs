@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace PassSafe
 {
@@ -35,6 +37,18 @@ namespace PassSafe
             {
                 Core.PrintErrorToFile(e.Message);
                 return null;
+            }
+        }
+
+        public static bool IsEmailAcceptable(string _email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(_email);
+                return addr.Address == _email;
+            } catch
+            {
+                return false;
             }
         }
     }

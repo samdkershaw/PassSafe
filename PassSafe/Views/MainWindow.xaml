@@ -6,70 +6,11 @@
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
         mc:Ignorable="d"
-        Title="PassSafe" MinHeight="400" MinWidth="600" 
-        MaxHeight="400" MaxWidth="600"
+        Title="PassSafe"
         ResizeMode="CanMinimize"             
         WindowStartupLocation="CenterScreen" BorderThickness="1" TitleCaps="False"
         DataContext="{DynamicResource ViewModelMainWindow}">
     <Window.Resources>
         <vm:ViewModelMainWindow x:Key="ViewModelMainWindow"/>
     </Window.Resources>
-    <Grid>
-        <DockPanel>
-            <Menu DockPanel.Dock="Top">
-                <MenuItem Header="_File" Name="menuFile">
-                    <MenuItem Header="_Open" Name="menuFile_Open"/>
-                    <MenuItem Header="_Close" Name="menuFile_Close"/>
-                    <MenuItem Header="_Exit" Name="menuFile_Exit"/>
-                </MenuItem>
-                <MenuItem Header="_Edit" Name="menuEdit">
-                    <MenuItem Header="_Purge Password Database" Name="menuEdit_Purge" />
-                </MenuItem>
-                <MenuItem Header="_Help" Name="menuHelp">
-                    <MenuItem Header="_About" Name="menuHelp_About" />
-                    <MenuItem Header="_Settings" Name="menuHelp_Settings" />
-                    <Separator/>
-                    <MenuItem Header="_Logout" Name="menuHelp_Logout" />
-                </MenuItem>
-            </Menu>
-            <Grid HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="3*" />
-                </Grid.ColumnDefinitions>
-                <ListBox Grid.Column="0" x:Name="servicesList" Background="#CCCCCC">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <DataTemplate.Resources>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="Padding" Value="5"/>
-                                </Style>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="Padding" Value="5" />
-                                    <Setter Property="Height" Value="5" />
-                                </Style>
-                            </DataTemplate.Resources>
-                            <Grid Margin="0,2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="5*" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="{Binding ImagePath}" />
-                                <TextBlock Grid.Column="1"  Text="{Binding Title}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-                <Grid Grid.Column="1" Background="#EEEEEE">
-                    <Button x:Name="DeleteButton" 
-                            HorizontalAlignment="Left" Margin="192,139,0,0" 
-                            VerticalAlignment="Top" Style="{StaticResource MetroFlatButton}">
-                        <TextBlock Text="Delete"></TextBlock>
-                    </Button>
-                    <Label x:Name="label" Content="{Binding SelectedService}" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontFamily="Segoe WP" FontSize="32"/>
-                </Grid>
-
-            </Grid>
-        </DockPanel>
-    </Grid>
 </Controls:MetroWindow>
