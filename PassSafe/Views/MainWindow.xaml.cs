@@ -26,6 +26,8 @@ namespace PassSafe.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            Text.Content = new PasswordFactory().Generate();
         }
     }
 }

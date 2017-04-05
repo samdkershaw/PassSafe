@@ -130,6 +130,7 @@
     </ApplicationDefinition>
     <Compile Include="Data\Database.cs" />
     <Compile Include="Models\Service.cs" />
+    <Compile Include="Models\Services.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />

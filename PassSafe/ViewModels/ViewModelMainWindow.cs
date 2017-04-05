@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PassSafe.Models;
+using PassSafe.Data;
 
 namespace PassSafe.ViewModels
 {
@@ -27,10 +28,15 @@ namespace PassSafe.ViewModels
             }
         }
 
+        public void Update()
+        {
+            //Database db = new Database();
+            //this.Services = new ObservableCollection<Service>(db.GetServices());
+        }
+
         public ViewModelMainWindow()
         {
-            Data.Database db = new Data.Database();
-            Services = new ObservableCollection<Service>(db.GetServices());
+            this.Update();
         }
     }
 }

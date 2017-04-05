@@ -19,16 +19,17 @@ namespace PassSafe.Data
         public Database()
         {
             this.fileName = Directory.GetCurrentDirectory() + @"\database.sqlite3";
-            this.conn = new SQLiteConnection("Data Source=" + fileName + ";Version=3;");
+            this.conn = new SQLiteConnection(String.Format("Data Source={0};Version=3;", this.fileName));
         }
 
-        public List<Models.Service> GetServices()
+        public List<Service> GetServices()
         {
             string sql = @"select * from Services;";
-            DataSet ds = Select(sql);
+            DataTable dataTable = this.Select(sql);
 
-            List<Service> list = ds.Tables[0].AsEnumerable().Select(
-                dataRow => new Models.Service {
+            List<Service> list = dataTable.Rows.OfType<DataRow>().Select(
+                dataRow => new Service
+                {
                     ServiceName = dataRow.Field<string>("ServiceName"),
                     UserName = dataRow.Field<string>("UserName"),
                     Email = dataRow.Field<string>("Email"),
@@ -38,21 +39,31 @@ namespace PassSafe.Data
             return list;
         }
 
-        //public UserInfo
-
-        public DataSet Select(string sql)
+        public UserInfo GetUserInfo()
         {
-            DataSet ds = new DataSet();
+            UserInfo info = UserInfo.Instance;
+            string sql = @"select * from User;";
+            DataTable dataTable = this.Select(sql);
+
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            return info;
+        }
+
+        public DataTable Select(string sql)
+        {
+            DataTable dt = new DataTable();
             try
             {
                 this.conn.Open();
-                SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
-                da.Fill(ds);
-                this.conn.Close();
-                return ds;
-            } catch (Exception)
+                //SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
+                SQLiteCommand cmd = new SQLiteCommand(this.conn);
+                SQLiteDataReader reader = cmd.ExecuteReader();
+                dt.Load(reader);
+                reader.Close(); this.conn.Close();
+                return dt;
+            } catch (Exception e)
             {
-                throw;
+                throw new Exception(e.Message);
             }
         }
     }

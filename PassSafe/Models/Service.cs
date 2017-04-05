@@ -10,6 +10,20 @@ namespace PassSafe.Models
 {
     class Service : INotifyPropertyChanged
     {
+        int _Id;
+        public int Id
+        {
+            get
+            {
+                return _Id;
+            }
+            set
+            {
+                if (value >= 0)
+                    _Id = value;
+            }
+        }
+        
         string _ServiceName;
         public string ServiceName
         {

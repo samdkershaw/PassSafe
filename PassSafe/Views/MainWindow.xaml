@@ -9,8 +9,9 @@
         Title="PassSafe"
         ResizeMode="CanMinimize"             
         WindowStartupLocation="CenterScreen" BorderThickness="1" TitleCaps="False"
-        DataContext="{DynamicResource ViewModelMainWindow}">
+        >
     <Window.Resources>
         <vm:ViewModelMainWindow x:Key="ViewModelMainWindow"/>
     </Window.Resources>
+    <Label Content="Label" HorizontalAlignment="Left" Margin="223,124,0,0" VerticalAlignment="Top" x:Name="Text"/>
 </Controls:MetroWindow>

@@ -12,8 +12,11 @@ namespace PassSafe.Models
 
         public static UserInfo Instance { get { return lazy.Value; } }
 
+        private Dictionary<string, object> userInfoHolder = new Dictionary<string, object>();
+
         private UserInfo()
         {
+            //this.userInfoHolder = 
         }
     }
 }
