@@ -39,6 +39,19 @@ namespace PassSafe.Models
             }
         }
 
+        string _Website;
+        public string Website
+        {
+            get
+            {
+                return _Website;
+            }
+            set
+            {
+                _Website = Uri.EscapeDataString(value);
+            }
+        }
+
         string _Email;
         public string Email
         {
@@ -64,12 +77,26 @@ namespace PassSafe.Models
             }
         }
 
-        SecureString _Password;
-        public SecureString Password
+        string _HashedPassword;
+        public string HashedPassword
         {
             set
             {
-                _Password = value;
+                _HashedPassword = value;
+            }
+        }
+
+        string _PasswordHash;
+        public string PasswordHash
+        {
+            get
+            {
+                return _PasswordHash;
+            }
+            set
+            {
+                if (value.GetType() == typeof(string))
+                    _PasswordHash = value;
             }
         }
 
