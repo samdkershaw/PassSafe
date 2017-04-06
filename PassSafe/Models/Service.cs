@@ -73,6 +73,19 @@ namespace PassSafe.Models
             }
         }
 
+        DateTime _LastUpdated;
+        public DateTime LastUpdated
+        {
+            get
+            {
+                return _LastUpdated;
+            }
+            set
+            {
+
+            }
+        }
+
         void RaisePropertyChanged(string prop)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));

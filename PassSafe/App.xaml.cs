@@ -8,6 +8,7 @@ using System.Windows;
 using System.Timers;
 using System.Windows.Threading;
 using PassSafe.Views;
+using MahApps.Metro;
 
 namespace PassSafe
 {
@@ -34,29 +35,12 @@ namespace PassSafe
         {
             base.OnStartup(e);
 
+            ThemeManager.ChangeAppStyle(Application.Current,
+                                        ThemeManager.GetAccent("Purple"),
+                                        ThemeManager.GetAppTheme("BaseLight"));
+
             mainWindow = new MainWindow();
             mainWindow.Show();
-
-            //if (System.Diagnostics.Process.GetProcessesByName(
-            //    System.IO.Path.GetFileNameWithoutExtension(
-            //        System.Reflection.Assembly.GetEntryAssembly().Location)).Count() > 1)
-            //{
-            //    MessageBoxResult reallyQuit = MessageBox.Show("Another instance of PassSafe is already running.",
-            //    "PassSafe",
-            //    MessageBoxButton.OK);
-            //    if (reallyQuit == MessageBoxResult.OK)
-            //        Current.Shutdown();
-            //}
-
-            //t = new Timer();
-            //t.Interval = 5000;
-            //t.Elapsed += T_Elapsed;
-
-            //splashScreen = new SplashScreen();
-            //splashScreen.Show();
-            //t.Start();
-
-            //mainWindow = new MainWindow();
         }
     }
 }

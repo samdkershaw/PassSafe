@@ -44,8 +44,7 @@ namespace PassSafe
         {
             try
             {
-                var addr = new System.Net.Mail.MailAddress(_email);
-                return addr.Address == _email;
+                return new System.Net.Mail.MailAddress(_email).Address == _email;
             } catch
             {
                 return false;
