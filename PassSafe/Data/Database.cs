@@ -15,28 +15,91 @@ namespace PassSafe.Data
     {
         string fileName;
         SQLiteConnection conn;
+        string connString;
+        bool databaseExists = false;
 
         public Database()
         {
             this.fileName = Directory.GetCurrentDirectory() + @"\database.sqlite3";
-            this.conn = new SQLiteConnection(String.Format("Data Source={0};Version=3;", this.fileName));
+            this.connString = String.Format("Data Source={0};Version=3;", this.fileName);
+
+            if (!File.Exists(this.fileName))
+            {
+                if (!this.CreateDatabase())
+                    return;
+                else
+                    this.databaseExists = true;
+            } else
+            {
+                this.databaseExists = true;
+            }
+
+            this.conn = new SQLiteConnection(this.connString);
+        }
+
+        private bool CreateDatabase()
+        {
+            try
+            {
+                SQLiteConnection.CreateFile(this.fileName);
+                using (var sqlite3 = new SQLiteConnection(this.connString))
+                {
+                    sqlite3.Open();
+                    StringBuilder sql = new StringBuilder();
+                    sql.AppendLine("CREATE TABLE 'Services'( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `serviceName` TEXT NOT NULL, `email` TEXT NOT NULL, `loginName` TEXT NOT NULL, `description` TEXT NOT NULL, `password` TEXT NOT NULL, `hash` TEXT NOT NULL, `lastUpdated` INTEGER NOT NULL)");
+                }
+                return true;
+            } catch (Exception e)
+            {
+                Core.PrintDebug(e.Message);
+                return false;
+            }
         }
 
         public List<Service> GetServices()
         {
             string sql = @"select * from Services;";
             DataTable dataTable = this.Select(sql);
-
-            List<Service> list = dataTable.Rows.OfType<DataRow>().Select(
-                dataRow => new Service
+            if (dataTable.Rows.Count > 0)
+            {
+                try
                 {
-                    ServiceName = dataRow.Field<string>("ServiceName"),
-                    UserName = dataRow.Field<string>("UserName"),
-                    Email = dataRow.Field<string>("Email"),
-                    Password = dataRow.Field<SecureString>("Password")
-                }).ToList();
+                    Core.PrintDebug("Reading Services from database...");
+                    List<Service> thisList = new List<Service>();
+                    foreach (DataRow dr in dataTable.Rows)
+                    {
+                        Service service = new Service();
+                        service.Id = Convert.ToInt32(dr["id"]);
+                        service.ServiceName = dr.Field<string>("serviceName");
+                        service.Email = dr.Field<string>("email");
+                        service.UserName = dr.Field<string>("loginName");
+                        service.Description = dr.Field<string>("description");
+                        service.HashedPassword = dr.Field<string>("password");
+                        service.PasswordHash = dr.Field<string>("hash");
+                        thisList.Add(service);
+                    }
 
-            return list;
+                    return thisList;
+                } catch (Exception e)
+                {
+                    Core.PrintDebug(e.Message);
+                    Core.PrintDebug(e.StackTrace);
+                }
+            }
+
+            return new List<Service>
+            {
+                new Service()
+                {
+                    Id = -1,
+                    ServiceName = "ExampleService",
+                    Email = "sam@samdkershaw.com",
+                    UserName = "ExampleUsername",
+                    Description = "This is an example description.",
+                    HashedPassword = "password",
+                    PasswordHash = "lol"
+                }
+            };
         }
 
         public UserInfo GetUserInfo()
@@ -56,14 +119,35 @@ namespace PassSafe.Data
             {
                 this.conn.Open();
                 //SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
-                SQLiteCommand cmd = new SQLiteCommand(this.conn);
+                SQLiteCommand cmd = new SQLiteCommand(sql, this.conn);
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 dt.Load(reader);
-                reader.Close(); this.conn.Close();
+                reader.Close();
+                this.conn.Close();
                 return dt;
             } catch (Exception e)
             {
-                throw new Exception(e.Message);
+                Core.PrintDebug(e.Message);
+            }
+            return dt;
+        }
+
+        public bool DeleteService(int rowId)
+        {
+            try
+            {
+                SQLiteCommand cmd = new SQLiteCommand();
+                SQLiteTransaction trans = conn.BeginTransaction();
+                cmd.Connection = this.conn;
+                cmd.CommandText = "delete from services where id = @id";
+                cmd.Parameters.AddWithValue("@id", rowId.ToString());
+                cmd.ExecuteNonQuery();
+                trans.Commit();
+                return true;
+            } catch (Exception e)
+            {
+                Core.PrintDebug(e.Message);
+                return false;
             }
         }
     }

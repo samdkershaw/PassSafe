@@ -39,15 +39,89 @@
         </DockPanel>
         <DockPanel LastChildFill="True"
                    Grid.Column="1">
-            <StackPanel Orientation="Horizontal"
-                        DockPanel.Dock="Top">
-                <Button Command="{Binding AddServiceCommand}"
-                        Content="Add New"/>
-                <Button Command="{Binding AddServiceCommand}"
-                        Content="Add New"/>
-            </StackPanel>
+            <Border Padding="5"
+                    DockPanel.Dock="Top"
+                    Background="LightGray">
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding AddServiceCommand}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Gray" Height="50" Width="50">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Command="{Binding EditServiceCommand}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Gray" Height="50" Width="50">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_edit}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    <Button Command="{Binding DeleteServiceCommand}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="White" Background="Red" Height="50" Width="50">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Grid DockPanel.Dock="Top"
+                  Height="40"
+                  Background="LightGray">
+                <Grid Margin="0,2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Padding="5,10,5,10"
+                                        Grid.Column="0">
+                        <TextBlock Text="Service Name" />
+                    </Border>
+                    <Border Padding="5,10,5,10"
+                                        Grid.Column="1">
+                        <TextBlock Text="Login Name" />
+                    </Border>
+                    <Border Padding="5,10,5,10"
+                                        Grid.Column="2">
+                        <TextBlock Text="Last Updated" />
+                    </Border>
+                </Grid>
+            </Grid>
             <Grid DockPanel.Dock="Bottom">
-                
+                <ListView ItemsSource="{Binding Services}"
+                          SelectedItem="{Binding SelectedService}"
+                          Name="servicesList">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                </Grid.ColumnDefinitions>
+                                <Border Padding="5,10,5,10"
+                                        Grid.Column="0">
+                                    <TextBlock Text="{Binding ServiceName}" />
+                                </Border>
+                                <Border Padding="5,10,5,10"
+                                        Grid.Column="1">
+                                    <TextBlock Text="{Binding UserName}" />
+                                </Border>
+                                <Border Padding="5,10,5,10"
+                                        Grid.Column="2">
+                                    <TextBlock Text="{Binding LastUpdated}" />
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListView>
             </Grid>
         </DockPanel>
     </Grid>

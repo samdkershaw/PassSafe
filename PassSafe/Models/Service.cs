@@ -62,6 +62,7 @@ namespace PassSafe.Models
             {
                 if (Core.IsEmailAcceptable(value))
                     _Email = value;
+                else return;
             }
         }
 
@@ -73,7 +74,20 @@ namespace PassSafe.Models
                 return _UserName;
             } set
             {
+                _UserName = value;
+            }
+        }
 
+        string _Description;
+        public string Description
+        {
+            get
+            {
+                return _Description;
+            }
+            set
+            {
+                _Description = value;
             }
         }
 
@@ -109,8 +123,21 @@ namespace PassSafe.Models
             }
             set
             {
-
+                _LastUpdated = value;
             }
+        }
+
+        public Service()
+        {
+            Id = -1;
+            ServiceName = default(string);
+            Website = default(string);
+            Email = default(string);
+            UserName = default(string);
+            Description = default(string);
+            HashedPassword = default(string);
+            PasswordHash = default(string);
+            LastUpdated = default(DateTime);
         }
 
         void RaisePropertyChanged(string prop)

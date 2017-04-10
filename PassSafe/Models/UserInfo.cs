@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PassSafe.Models
 {
-    public sealed class UserInfo
+    class UserInfo : INotifyPropertyChanged
     {
         private static readonly Lazy<UserInfo> lazy = new Lazy<UserInfo>(() => new UserInfo());
 
@@ -18,5 +19,11 @@ namespace PassSafe.Models
         {
             //this.userInfoHolder = 
         }
+
+        void RaisePropertyChanged(string prop)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

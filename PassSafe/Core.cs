@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace PassSafe
 {
@@ -49,6 +50,11 @@ namespace PassSafe
             {
                 return false;
             }
+        }
+
+        public static void PrintDebug(string msg)
+        {
+            Debug.WriteLine(msg);
         }
     }
 }
