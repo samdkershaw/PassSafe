@@ -36,7 +36,7 @@ namespace PassSafe
             base.OnStartup(e);
 
             ThemeManager.ChangeAppStyle(Application.Current,
-                                        ThemeManager.GetAccent("Purple"),
+                                        ThemeManager.GetAccent("Blue"),
                                         ThemeManager.GetAppTheme("BaseLight"));
 
             mainWindow = new MainWindow();

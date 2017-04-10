@@ -13,7 +13,7 @@ namespace PassSafe.ViewModels
 {
     class ViewModelMainWindow : ViewModelBase
     {
-        public ObservableCollection<Service> Services { get; set; }
+        public Services ServicesList { get; set; }
         public DelegateCommand AddServiceCommand { get; private set; }
         public DelegateCommand EditServiceCommand { get; private set; }
         public DelegateCommand DeleteServiceCommand { get; private set; }
@@ -50,18 +50,19 @@ namespace PassSafe.ViewModels
 
         private void EditService()
         {
-            Core.PrintDebug(SelectedService.Id.ToString());
-            if (SelectedService == null || SelectedService.Id == 0)
+            if (SelectedService == null)
             {
                 MessageBox.Show("Error");
                 return;
             }
+
+            Core.PrintDebug(SelectedService.Id.ToString());
         }
 
         private void DeleteService()
         {
-            if (SelectedService == null || SelectedService.Id == 0) {
-                MessageBox.Show("Error");
+            if (SelectedService == null) {
+                MessageBox.Show("ERROR: You need to select a service in order to do that.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -81,7 +82,7 @@ namespace PassSafe.ViewModels
         public void Update()
         {
             Database db = new Database();
-            this.Services = new ObservableCollection<Service>(db.GetServices());
+            this.ServicesList = new ObservableCollection<Service>(db.GetServices());
         }
     }
 }

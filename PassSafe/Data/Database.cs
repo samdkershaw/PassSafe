@@ -11,49 +11,67 @@ using PassSafe.Models;
 
 namespace PassSafe.Data
 {
-    class Database
+    public class Database
     {
         string fileName;
         SQLiteConnection conn;
         string connString;
-        bool databaseExists = false;
 
         public Database()
         {
             this.fileName = Directory.GetCurrentDirectory() + @"\database.sqlite3";
             this.connString = String.Format("Data Source={0};Version=3;", this.fileName);
 
-            if (!File.Exists(this.fileName))
-            {
-                if (!this.CreateDatabase())
-                    return;
-                else
-                    this.databaseExists = true;
-            } else
-            {
-                this.databaseExists = true;
-            }
+            FileInfo dbInfo = new FileInfo(this.fileName);
+
+            //if (!dbInfo.Exists || dbInfo.Length == 0)
+            //{
+            //    if (!CreateDatabase())
+            //        return;
+            //}
 
             this.conn = new SQLiteConnection(this.connString);
         }
 
-        private bool CreateDatabase()
+        public bool DoesDatabaseExist()
         {
+            FileInfo dbInfo = new FileInfo(this.fileName);
+            if (!dbInfo.Exists || dbInfo.Length == 0)
+                return CreateDatabase();
+            else
+                return true;
+        }
+
+        public bool CreateDatabase()
+        {
+            Database db = new Database();
+            bool success = false;
             try
             {
-                SQLiteConnection.CreateFile(this.fileName);
-                using (var sqlite3 = new SQLiteConnection(this.connString))
+                SQLiteConnection.CreateFile(db.fileName);
+                using (var sqlite3 = new SQLiteConnection(db.connString))
                 {
                     sqlite3.Open();
-                    StringBuilder sql = new StringBuilder();
-                    sql.AppendLine("CREATE TABLE 'Services'( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `serviceName` TEXT NOT NULL, `email` TEXT NOT NULL, `loginName` TEXT NOT NULL, `description` TEXT NOT NULL, `password` TEXT NOT NULL, `hash` TEXT NOT NULL, `lastUpdated` INTEGER NOT NULL)");
+                    string sql = @"CREATE TABLE 'Services'(
+`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+`serviceName` TEXT NOT NULL, 
+`email` TEXT NOT NULL, 
+`loginName` TEXT NOT NULL, 
+`description` TEXT NOT NULL, 
+`password` TEXT NOT NULL, 
+`hash` TEXT NOT NULL, 
+`lastUpdated` INTEGER NOT NULL)";
+                    SQLiteCommand command = new SQLiteCommand(sql, sqlite3);
                 }
-                return true;
+                success = true;
             } catch (Exception e)
             {
                 Core.PrintDebug(e.Message);
-                return false;
+            } finally
+            {
+
             }
+            return success;
         }
 
         public List<Service> GetServices()
@@ -87,19 +105,7 @@ namespace PassSafe.Data
                 }
             }
 
-            return new List<Service>
-            {
-                new Service()
-                {
-                    Id = -1,
-                    ServiceName = "ExampleService",
-                    Email = "sam@samdkershaw.com",
-                    UserName = "ExampleUsername",
-                    Description = "This is an example description.",
-                    HashedPassword = "password",
-                    PasswordHash = "lol"
-                }
-            };
+            return new List<Service>();
         }
 
         public UserInfo GetUserInfo()
@@ -125,7 +131,7 @@ namespace PassSafe.Data
                 reader.Close();
                 this.conn.Close();
                 return dt;
-            } catch (Exception e)
+            } catch (SQLiteException e)
             {
                 Core.PrintDebug(e.Message);
             }
@@ -134,21 +140,28 @@ namespace PassSafe.Data
 
         public bool DeleteService(int rowId)
         {
+            bool success = false;
             try
             {
                 SQLiteCommand cmd = new SQLiteCommand();
+                this.conn.Open();
                 SQLiteTransaction trans = conn.BeginTransaction();
                 cmd.Connection = this.conn;
                 cmd.CommandText = "delete from services where id = @id";
                 cmd.Parameters.AddWithValue("@id", rowId.ToString());
                 cmd.ExecuteNonQuery();
                 trans.Commit();
-                return true;
+                success = true;
             } catch (Exception e)
             {
                 Core.PrintDebug(e.Message);
-                return false;
             }
+            finally
+            {
+                this.conn.Close();
+            }
+
+            return success;
         }
     }
 }

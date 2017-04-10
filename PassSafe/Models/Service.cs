@@ -8,7 +8,7 @@ using System.Security;
 
 namespace PassSafe.Models
 {
-    class Service : INotifyPropertyChanged
+    public class Service : INotifyPropertyChanged
     {
         int _Id;
         public int Id
@@ -33,9 +33,7 @@ namespace PassSafe.Models
             }
             set
             {
-                // Convert the string to title case
-                System.Globalization.TextInfo t = new System.Globalization.CultureInfo("en-us", false).TextInfo;
-                _ServiceName = t.ToTitleCase(value);
+                _ServiceName = value;
             }
         }
 
@@ -130,13 +128,13 @@ namespace PassSafe.Models
         public Service()
         {
             Id = -1;
-            ServiceName = default(string);
-            Website = default(string);
-            Email = default(string);
-            UserName = default(string);
-            Description = default(string);
-            HashedPassword = default(string);
-            PasswordHash = default(string);
+            ServiceName = "";
+            Website = "";
+            Email = "";
+            UserName = "";
+            Description = "";
+            HashedPassword = "";
+            PasswordHash = "";
             LastUpdated = default(DateTime);
         }
 

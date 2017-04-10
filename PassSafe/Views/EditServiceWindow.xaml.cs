@@ -12,13 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PassSafe.Models;
+using MahApps.Metro.Controls;
 
 namespace PassSafe.Views
 {
     /// <summary>
     /// Interaction logic for EditServiceWindow.xaml
     /// </summary>
-    public partial class EditServiceWindow : Window
+    public partial class EditServiceWindow : MetroWindow
     {
         public EditServiceWindow(Service _SelectedService)
         {

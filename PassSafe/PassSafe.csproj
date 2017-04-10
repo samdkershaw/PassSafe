@@ -214,7 +214,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Core.cs" />
-    <Compile Include="DatabaseManager.cs" />
     <Compile Include="Encryption\Decrypter.cs" />
     <Compile Include="Encryption\Encrypter.cs" />
     <Compile Include="Encryption\EncryptionBase.cs" />

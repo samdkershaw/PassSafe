@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using PassSafe.Models;
+using PassSafe.Data;
 
 namespace PassSafe.Views
 {
@@ -23,6 +25,12 @@ namespace PassSafe.Views
         public SplashScreen()
         {
             InitializeComponent();
+
+            Database db = new Database();
+            if (db.DoesDatabaseExist())
+            {
+
+            }
         }
     }
 }

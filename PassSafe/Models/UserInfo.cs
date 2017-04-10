@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PassSafe.Models
 {
-    class UserInfo : INotifyPropertyChanged
+    public class UserInfo : INotifyPropertyChanged
     {
         private static readonly Lazy<UserInfo> lazy = new Lazy<UserInfo>(() => new UserInfo());
 
