@@ -3,21 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using PassSafe.Data;
 
 namespace PassSafe.Models
 {
-    class Services
+    public class HashedPassword
     {
-        List<Service> services = new List<Service>();
+        private string password;
+        private string hash;
 
-        public Services()
+        public HashedPassword(string _password)
         {
-
-        }
-
-        public void Update()
-        {
+            this.password = _password;
         }
     }
 }

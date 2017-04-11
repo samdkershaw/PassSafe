@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using PassSafe.Models;
+using PassSafe.ViewModels;
 using MahApps.Metro.Controls;
 
 namespace PassSafe.Views
@@ -23,6 +24,7 @@ namespace PassSafe.Views
     {
         public EditServiceWindow(Service _SelectedService)
         {
+            DataContext = new ViewModelEditServiceWindow(_SelectedService);
             InitializeComponent();
         }
     }

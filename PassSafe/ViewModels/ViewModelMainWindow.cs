@@ -22,11 +22,22 @@ namespace PassSafe.ViewModels
         {
             this.Update();
             this.AddServiceCommand = new DelegateCommand(this.AddService);
-            this.EditServiceCommand = new DelegateCommand(this.EditService);
-            this.DeleteServiceCommand = new DelegateCommand(this.DeleteService);
+            this.EditServiceCommand = new DelegateCommand(this.EditService, CanEditOrDelete);
+            this.DeleteServiceCommand = new DelegateCommand(this.DeleteService, CanEditOrDelete);
         }
 
-        
+        UserInfo _UserInfoHolder;
+        public UserInfo UserInfoHolder
+        {
+            get
+            {
+                return _UserInfoHolder;
+            }
+            set
+            {
+                SetProperty(ref _UserInfoHolder, value);
+            }
+        }
 
         Service _SelectedService;
         public Service SelectedService
@@ -40,15 +51,9 @@ namespace PassSafe.ViewModels
                 if (_SelectedService != value)
                 {
                     SetProperty(ref _SelectedService, value);
+                    EditServiceCommand.RaiseCanExecuteChanged();
+                    DeleteServiceCommand.RaiseCanExecuteChanged();
                 }
-            }
-        }
-
-        public bool ButtonsEnabled
-        {
-            get
-            {
-                return SelectedService != null;
             }
         }
 
@@ -67,6 +72,8 @@ namespace PassSafe.ViewModels
             }
 
             Core.PrintDebug(SelectedService.Id.ToString());
+
+            new EditServiceWindow(SelectedService).ShowDialog();
         }
 
         private void DeleteService()
@@ -84,15 +91,19 @@ namespace PassSafe.ViewModels
                 Database db = new Database();
                 if (db.DeleteService(SelectedService.Id))
                 {
-                    Update();
+                    ServicesList.Remove(SelectedService);
                 }
             }
         }
 
+        private bool CanEditOrDelete()
+        {
+            return SelectedService != null;
+        }
+
         public void Update()
         {
-            Database db = new Database();
-            this.ServicesList = new ObservableCollection<Service>(db.GetServices());
+            this.ServicesList = new Database().GetServices();
         }
     }
 }

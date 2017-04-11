@@ -7,7 +7,7 @@ using Google.Authenticator;
 
 namespace PassSafe
 {
-    class TwoFactorAuthentication
+    public class TwoFactorAuthentication
     {
     }
 }

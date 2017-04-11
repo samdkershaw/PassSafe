@@ -8,6 +8,7 @@ using System.Data.SQLite;
 using System.Data;
 using System.Security;
 using PassSafe.Models;
+using System.Collections.ObjectModel;
 
 namespace PassSafe.Data
 {
@@ -74,7 +75,7 @@ namespace PassSafe.Data
             return success;
         }
 
-        public List<Service> GetServices()
+        public ObservableCollection<Service> GetServices()
         {
             string sql = @"select * from Services;";
             DataTable dataTable = this.Select(sql);
@@ -83,7 +84,7 @@ namespace PassSafe.Data
                 try
                 {
                     Core.PrintDebug("Reading Services from database...");
-                    List<Service> thisList = new List<Service>();
+                    ObservableCollection<Service> thisList = new ObservableCollection<Service>();
                     foreach (DataRow dr in dataTable.Rows)
                     {
                         Service service = new Service();
@@ -105,7 +106,7 @@ namespace PassSafe.Data
                 }
             }
 
-            return new List<Service>();
+            return new ObservableCollection<Service>();
         }
 
         public UserInfo GetUserInfo()
@@ -134,6 +135,7 @@ namespace PassSafe.Data
             } catch (SQLiteException e)
             {
                 Core.PrintDebug(e.Message);
+                Core.PrintDebug(e.StackTrace);
             }
             return dt;
         }
@@ -155,6 +157,7 @@ namespace PassSafe.Data
             } catch (Exception e)
             {
                 Core.PrintDebug(e.Message);
+                Core.PrintDebug(e.StackTrace);
             }
             finally
             {

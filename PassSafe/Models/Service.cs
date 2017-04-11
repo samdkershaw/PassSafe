@@ -92,6 +92,10 @@ namespace PassSafe.Models
         string _HashedPassword;
         public string HashedPassword
         {
+            get
+            {
+                return _HashedPassword;
+            }
             set
             {
                 _HashedPassword = value;
@@ -107,8 +111,7 @@ namespace PassSafe.Models
             }
             set
             {
-                if (value.GetType() == typeof(string))
-                    _PasswordHash = value;
+                _PasswordHash = value;
             }
         }
 
@@ -125,18 +128,18 @@ namespace PassSafe.Models
             }
         }
 
-        public Service()
-        {
-            Id = -1;
-            ServiceName = "";
-            Website = "";
-            Email = "";
-            UserName = "";
-            Description = "";
-            HashedPassword = "";
-            PasswordHash = "";
-            LastUpdated = default(DateTime);
-        }
+        //public Service()
+        //{
+        //    Id = -1;
+        //    ServiceName = "";
+        //    Website = "";
+        //    Email = "";
+        //    UserName = "";
+        //    Description = "";
+        //    HashedPassword = "";
+        //    PasswordHash = "";
+        //    LastUpdated = default(DateTime);
+        //}
 
         void RaisePropertyChanged(string prop)
         {

@@ -6,10 +6,36 @@
         xmlns:local="clr-namespace:PassSafe.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
-        mc:Ignorable="d"
-        Title="EditServiceWindow" Height="300" Width="300">
-    <Grid>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="117,117,0,0" VerticalAlignment="Top" Width="75"/>
-
-    </Grid>
+        mc:Ignorable="d" MinHeight="500" Height="500" MinWidth="400" Width="400"
+                      Background="#EDEDED"
+                      Title="{Binding TitleText}"
+                      WindowStartupLocation="CenterScreen">
+    <DockPanel LastChildFill="True">
+        <TextBlock Padding="5"
+                   DockPanel.Dock="Top"
+                   Height="100"
+                   Background="Gray"
+                   Foreground="White"
+                   TextAlignment="Left" FontSize="14"
+                   Text="{Binding Description}"
+                   TextWrapping="Wrap"></TextBlock>
+        <Grid ShowGridLines="True"
+              DockPanel.Dock="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40" />
+            </Grid.RowDefinitions>
+            
+        </Grid>
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    DockPanel.Dock="Bottom">
+            <Button x:Name="resetBtn" Content="Reset"  Margin="7" />
+            <Button x:Name="submitBtn" Content="Save Changes" Margin="7" />
+        </StackPanel>
+    </DockPanel>
 </Controls:MetroWindow>
