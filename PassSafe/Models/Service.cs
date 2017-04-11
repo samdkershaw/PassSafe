@@ -46,7 +46,8 @@ namespace PassSafe.Models
             }
             set
             {
-                _Website = Uri.EscapeDataString(value);
+                _Website = value;
+                //_Website = Uri.EscapeDataString(value);
             }
         }
 

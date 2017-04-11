@@ -26,6 +26,22 @@ namespace PassSafe.Views
         {
             DataContext = new ViewModelEditServiceWindow(_SelectedService);
             InitializeComponent();
+            this.Closing += EditServiceWindow_Closing;
         }
+
+        private void EditServiceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel? You'll lose your changes.",
+                                                        "Cancel?", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.No)
+                e.Cancel = true;
+        }
+
+        private void resetBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+
     }
 }

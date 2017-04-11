@@ -9,7 +9,7 @@
         Title="PassSafe"             
         ResizeMode="CanResizeWithGrip"
         WindowStartupLocation="CenterScreen"
-        MinWidth="800" MinHeight="600"
+        MinWidth="900" MinHeight="600"
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
         TitleCaps="False">
@@ -26,15 +26,27 @@
         </Grid.ColumnDefinitions>
         <Grid Background="{DynamicResource AccentColorBrush}"
                       Grid.Column="0">
+            <DockPanel>
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Welcome, Sam" HorizontalAlignment="Center" FontSize="25" Foreground="White" FontWeight="DemiBold" Padding="0,10,0,0"/>
+                </StackPanel>
+                <Button Command="{Binding AddServiceCommand}" ToolTip="Settings"
+                            Style="{DynamicResource MetroCircleButtonStyle}" DockPanel.Dock="Bottom" Foreground="Black" Background="White" Height="40" Width="40" HorizontalAlignment="Center" Margin="0,0,0,5" >
+                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </DockPanel>
         </Grid>
-        <Border BorderThickness="0,0,1,0" BorderBrush="Pink" />
-        <DockPanel LastChildFill="True"
-                   Grid.Column="1">
+        <Border BorderThickness="2" BorderBrush="LightGray" Grid.Column="1">
+        <DockPanel LastChildFill="True">
             <Border Padding="5"
                     DockPanel.Dock="Top"
                     Background="LightGray">
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding AddServiceCommand}"
+                    <Button Command="{Binding AddServiceCommand}" ToolTip="Add Service"
                             Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
@@ -42,7 +54,7 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-                    <Button Command="{Binding EditServiceCommand}"
+                    <Button Command="{Binding EditServiceCommand}" ToolTip="Edit Service"
                             Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
@@ -50,7 +62,7 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-                    <Button Command="{Binding DeleteServiceCommand}"
+                    <Button Command="{Binding DeleteServiceCommand}" ToolTip="Delete Service"
                             Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Background="Red" Height="50" Width="50" BorderBrush="AliceBlue">
                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
@@ -103,11 +115,11 @@
                                 </Border>
                                 <Border Padding="5,10,5,10"
                                         Grid.Column="1">
-                                    <TextBlock Text="{Binding UserName}" />
+                                    <TextBlock Text="{Binding UserName}" TextWrapping="WrapWithOverflow"/>
                                 </Border>
                                 <Border Padding="5,10,5,10"
                                         Grid.Column="2">
-                                    <TextBlock Text="{Binding LastUpdated}" />
+                                    <TextBlock Text="{Binding LastUpdated, StringFormat={}{0:dd/MM/yyyy 'at' HH:mm }}" TextWrapping="WrapWithOverflow" />
                                 </Border>
                             </Grid>
                         </DataTemplate>
@@ -115,5 +127,6 @@
                 </ListView>
             </Grid>
         </DockPanel>
+        </Border>
     </Grid>
 </Controls:MetroWindow>

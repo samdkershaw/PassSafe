@@ -8,6 +8,7 @@ using PassSafe.Data;
 using PassSafe.Views;
 using System.Windows.Input;
 using System.Windows;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace PassSafe.ViewModels
 {

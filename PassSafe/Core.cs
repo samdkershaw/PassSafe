@@ -56,5 +56,18 @@ namespace PassSafe
         {
             Debug.WriteLine(msg);
         }
+
+        public static DateTime UnixTimestampToDateTime(long timestamp)
+        {
+            DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(timestamp).ToLocalTime();
+            return dtDateTime;
+        }
+
+        public static long DateTimeToUnixTimestamp(DateTime date)
+        {
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+            return date.Subtract(epoch).Seconds;
+        }
     }
 }

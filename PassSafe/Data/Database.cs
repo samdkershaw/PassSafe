@@ -61,7 +61,8 @@ namespace PassSafe.Data
 `description` TEXT NOT NULL, 
 `password` TEXT NOT NULL, 
 `hash` TEXT NOT NULL, 
-`lastUpdated` INTEGER NOT NULL)";
+`lastUpdated` NUMERIC NOT NULL,
+`website` TEXT NOT NULL)";
                     SQLiteCommand command = new SQLiteCommand(sql, sqlite3);
                 }
                 success = true;
@@ -91,10 +92,12 @@ namespace PassSafe.Data
                         service.Id = Convert.ToInt32(dr["id"]);
                         service.ServiceName = dr.Field<string>("serviceName");
                         service.Email = dr.Field<string>("email");
+                        service.Website = dr.Field<string>("website");
                         service.UserName = dr.Field<string>("loginName");
                         service.Description = dr.Field<string>("description");
                         service.HashedPassword = dr.Field<string>("password");
                         service.PasswordHash = dr.Field<string>("hash");
+                        service.LastUpdated = Core.UnixTimestampToDateTime(Convert.ToInt64(dr["lastUpdated"]));
                         thisList.Add(service);
                     }
 

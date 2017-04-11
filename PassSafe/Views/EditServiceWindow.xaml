@@ -6,36 +6,88 @@
         xmlns:local="clr-namespace:PassSafe.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
-        mc:Ignorable="d" MinHeight="500" Height="500" MinWidth="400" Width="400"
+        mc:Ignorable="d" MinHeight="550" Height="550" MinWidth="400" Width="400"
                       Background="#EDEDED"
                       Title="{Binding TitleText}"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation="CenterScreen"
+                      ResizeMode="CanResizeWithGrip"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource AccentColorBrush}"
+        TitleCaps="False">
     <DockPanel LastChildFill="True">
-        <TextBlock Padding="5"
+        <TextBlock Padding="5,5,5,15"
                    DockPanel.Dock="Top"
-                   Height="100"
-                   Background="Gray"
-                   Foreground="White"
-                   TextAlignment="Left" FontSize="14"
+                   Background="LightGray"
+                   TextAlignment="Left"
                    Text="{Binding Description}"
-                   TextWrapping="Wrap"></TextBlock>
-        <Grid ShowGridLines="True"
-              DockPanel.Dock="Top">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="5*" />
-                <ColumnDefinition Width="7*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40" />
-            </Grid.RowDefinitions>
-            
-        </Grid>
+                   TextWrapping="Wrap"/>
+        <Border BorderBrush="#DDDDDD" BorderThickness="0,1,0,0" DockPanel.Dock="Top">
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="7*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition />
+                    <RowDefinition Height="40" />
+                </Grid.RowDefinitions>
+                <Label Grid.Column="0" Grid.Row="0"
+                           Content="Service Name" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Column="1" Grid.Row="0"
+                         Text="{Binding SelectedService.ServiceName, Mode=TwoWay}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0" />
+
+                <Label Grid.Column="0" Grid.Row="1"
+                           Content="Login Name" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Column="1" Grid.Row="1"
+                         Text="{Binding SelectedService.UserName}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
+
+                <Label Grid.Column="0" Grid.Row="2"
+                           Content="Email Address" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Column="1" Grid.Row="2"
+                         Text="{Binding SelectedService.Email}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
+
+                <Label Grid.Column="0" Grid.Row="3"
+                           Content="Website" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Column="1" Grid.Row="3"
+                         Text="{Binding SelectedService.Website}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
+
+                <Label Grid.Column="0" Grid.Row="4"
+                           Content="Description" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" AcceptsReturn="True"
+                         Text="{Binding SelectedService.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,5"/>
+
+                <Label Grid.Column="0" Grid.Row="5"
+                           Content="Password" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <Grid Grid.Column="1" Grid.Row="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+                    <PasswordBox Grid.Row="0" Grid.Column="0"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                    <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Margin="5">Generate</Button>
+                </Grid>
+
+                <Label Grid.Column="0" Grid.Row="6"
+                           Content="Last Updated" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="1" Grid.Row="6"
+                         Text="{Binding SelectedService.LastUpdated, StringFormat={}{0:dd/MM/yyyy 'at' HH:mm}}" FontWeight="Bold" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
+            </Grid>
+        </Border>
         <StackPanel Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     DockPanel.Dock="Bottom">
-            <Button x:Name="resetBtn" Content="Reset"  Margin="7" />
-            <Button x:Name="submitBtn" Content="Save Changes" Margin="7" />
+            <Button Command="{Binding SubmitCommand}" x:Name="submitBtn" Content="Save Changes" Margin="7" />
+            <Button Click="resetBtn_Click" x:Name="resetBtn" Content="Cancel"  Margin="7" />
         </StackPanel>
     </DockPanel>
 </Controls:MetroWindow>
