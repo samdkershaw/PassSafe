@@ -25,13 +25,9 @@
                               MaxWidth="250" />
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <ListView Background="#DFDFDF"
+        <ListView Background="Transparent"
+                  BorderThickness="0"
                       Grid.Column="0">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>
         </ListView>
         <DockPanel LastChildFill="True"
                    Grid.Column="1">
@@ -40,23 +36,23 @@
                     Background="LightGray">
                 <StackPanel Orientation="Horizontal">
                     <Button Command="{Binding AddServiceCommand}"
-                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Gray" Height="50" Width="50">
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-                    <Button Command="{Binding EditServiceCommand}"
-                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Gray" Height="50" Width="50">
+                    <Button Command="{Binding EditServiceCommand}" IsEnabled="{Binding ButtonsEnabled}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_edit}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-                    <Button Command="{Binding DeleteServiceCommand}"
-                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="White" Background="Red" Height="50" Width="50">
+                    <Button Command="{Binding DeleteServiceCommand}" IsEnabled="{Binding ButtonsEnabled}"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Background="Red" Height="50" Width="50" BorderBrush="AliceBlue">
                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />

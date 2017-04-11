@@ -13,7 +13,7 @@ namespace PassSafe.ViewModels
 {
     class ViewModelMainWindow : ViewModelBase
     {
-        public Services ServicesList { get; set; }
+        public ObservableCollection<Service> ServicesList { get; set; }
         public DelegateCommand AddServiceCommand { get; private set; }
         public DelegateCommand EditServiceCommand { get; private set; }
         public DelegateCommand DeleteServiceCommand { get; private set; }
@@ -25,6 +25,8 @@ namespace PassSafe.ViewModels
             this.EditServiceCommand = new DelegateCommand(this.EditService);
             this.DeleteServiceCommand = new DelegateCommand(this.DeleteService);
         }
+
+        
 
         Service _SelectedService;
         public Service SelectedService
@@ -39,6 +41,14 @@ namespace PassSafe.ViewModels
                 {
                     SetProperty(ref _SelectedService, value);
                 }
+            }
+        }
+
+        public bool ButtonsEnabled
+        {
+            get
+            {
+                return SelectedService != null;
             }
         }
 
