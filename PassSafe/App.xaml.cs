@@ -9,6 +9,7 @@ using System.Timers;
 using System.Windows.Threading;
 using PassSafe.Views;
 using MahApps.Metro;
+using PassSafe.Data;
 
 namespace PassSafe
 {
@@ -39,8 +40,14 @@ namespace PassSafe
                                         ThemeManager.GetAccent("Blue"),
                                         ThemeManager.GetAppTheme("BaseLight"));
 
-            mainWindow = new MainWindow();
-            mainWindow.Show();
+            if (new Database().DoesDatabaseExist())
+            {
+                mainWindow = new MainWindow();
+                mainWindow.Show();
+            } else
+            {
+
+            }
         }
     }
 }

@@ -37,10 +37,15 @@ namespace PassSafe.Data
         public bool DoesDatabaseExist()
         {
             FileInfo dbInfo = new FileInfo(this.fileName);
-            if (!dbInfo.Exists || dbInfo.Length == 0)
-                return CreateDatabase();
+            if (dbInfo.Exists)
+            {
+                string sql = "SELECT Count(id) FROM UserInfo";
+                this.conn.Open();
+                SQLiteCommand cmd = new SQLiteCommand(sql, this.conn);
+                DataTable dt = this.Select(sql);                
+            }
             else
-                return true;
+                return false;
         }
 
         public bool CreateDatabase()
