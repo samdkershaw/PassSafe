@@ -37,28 +37,41 @@ namespace PassSafe.Data
         public bool DoesDatabaseExist()
         {
             FileInfo dbInfo = new FileInfo(this.fileName);
-            if (dbInfo.Exists)
+            return dbInfo.Exists;
+        }
+
+        public bool IsReturningUser()
+        {
+            string sql = "SELECT Count(*) FROM UserInfo";
+            using (this.conn)
             {
-                string sql = "SELECT Count(id) FROM UserInfo";
-                this.conn.Open();
+                conn.Open();
                 SQLiteCommand cmd = new SQLiteCommand(sql, this.conn);
-                DataTable dt = this.Select(sql);                
+                long userCount = (long)cmd.ExecuteScalar();
+                return userCount == 1;
             }
-            else
-                return false;
         }
 
         public bool CreateDatabase()
         {
-            Database db = new Database();
             bool success = false;
             try
             {
-                SQLiteConnection.CreateFile(db.fileName);
-                using (var sqlite3 = new SQLiteConnection(db.connString))
+                SQLiteConnection.CreateFile(this.fileName);
+                using (var sqlite3 = new SQLiteConnection(this.connString))
                 {
                     sqlite3.Open();
-                    string sql = @"CREATE TABLE 'Services'(
+                    string userSql = @"CREATE TABLE 'UserInfo'(
+`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+`firstName` TEXT NOT NULL,
+`lastName` TEXT NOT NULL,
+`masterPassword` TEXT NOT NULL,
+`masterPasswordHash` TEXT NOT NULL,
+`emailAddress` TEXT NOT NULL,
+`deviceId` TEXT)";
+                    SQLiteCommand userCommand = new SQLiteCommand(userSql, sqlite3);
+                    userCommand.ExecuteNonQuery();
+                    string servicesSql = @"CREATE TABLE 'Services'(
 `id` INTEGER PRIMARY KEY AUTOINCREMENT,
 `serviceName` TEXT NOT NULL, 
 `email` TEXT NOT NULL, 
@@ -68,15 +81,14 @@ namespace PassSafe.Data
 `hash` TEXT NOT NULL, 
 `lastUpdated` NUMERIC NOT NULL,
 `website` TEXT NOT NULL)";
-                    SQLiteCommand command = new SQLiteCommand(sql, sqlite3);
+                    SQLiteCommand servicesCommand = new SQLiteCommand(servicesSql, sqlite3);
+                    servicesCommand.ExecuteNonQuery();
                 }
                 success = true;
             } catch (Exception e)
             {
                 Core.PrintDebug(e.Message);
-            } finally
-            {
-
+                File.Delete(this.fileName);
             }
             return success;
         }

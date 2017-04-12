@@ -30,23 +30,42 @@ namespace PassSafe
 
         //Windows
         Views.SplashScreen splashScreen;
-        MainWindow mainWindow;
+        Window childWindow;
         
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
-            ThemeManager.ChangeAppStyle(Application.Current,
+            ThemeManager.ChangeAppStyle(Current,
                                         ThemeManager.GetAccent("Blue"),
                                         ThemeManager.GetAppTheme("BaseLight"));
 
-            if (new Database().DoesDatabaseExist())
+            Database db = new Database();
+            int attempts = 0;
+            do
             {
-                mainWindow = new MainWindow();
-                mainWindow.Show();
-            } else
-            {
+                if (db.DoesDatabaseExist())
+                {
+                    if (db.IsReturningUser())
+                    {
+                        childWindow = new MainWindow();
+                        
+                    } else
+                    {
+                        childWindow = new NewUserWindow();
+                    }
+                    childWindow.Show();
+                    break;
+                }
+                else
+                {
+                    db.CreateDatabase();
+                }
+            } while (++attempts < 3);
 
+            if (childWindow == null)
+            {
+                MessageBox.Show("A problem occured with the database...\nCouldn't create or open it after 3 attempts.");
             }
         }
     }

@@ -19,8 +19,8 @@ namespace PassSafe.Models
             }
             set
             {
-                if (value >= 0)
-                    _Id = value;
+                _Id = value;
+                RaisePropertyChanged("Id");
             }
         }
         
@@ -34,6 +34,7 @@ namespace PassSafe.Models
             set
             {
                 _ServiceName = value;
+                RaisePropertyChanged("ServiceName");
             }
         }
 
@@ -47,6 +48,7 @@ namespace PassSafe.Models
             set
             {
                 _Website = value;
+                RaisePropertyChanged("Website");
                 //_Website = Uri.EscapeDataString(value);
             }
         }
@@ -60,7 +62,10 @@ namespace PassSafe.Models
             } set
             {
                 if (Core.IsEmailAcceptable(value))
+                {
                     _Email = value;
+                    RaisePropertyChanged("Email");
+                }
                 else return;
             }
         }
@@ -74,6 +79,7 @@ namespace PassSafe.Models
             } set
             {
                 _UserName = value;
+                RaisePropertyChanged("UserName");
             }
         }
 
@@ -87,6 +93,7 @@ namespace PassSafe.Models
             set
             {
                 _Description = value;
+                RaisePropertyChanged("Description");
             }
         }
 
@@ -100,6 +107,7 @@ namespace PassSafe.Models
             set
             {
                 _HashedPassword = value;
+                RaisePropertyChanged("HashedPassword");
             }
         }
 
@@ -113,6 +121,7 @@ namespace PassSafe.Models
             set
             {
                 _PasswordHash = value;
+                RaisePropertyChanged("PasswordHash");
             }
         }
 
@@ -126,6 +135,7 @@ namespace PassSafe.Models
             set
             {
                 _LastUpdated = value;
+                RaisePropertyChanged("LastUpdated");
             }
         }
 

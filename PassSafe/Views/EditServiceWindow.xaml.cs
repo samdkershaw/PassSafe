@@ -37,7 +37,7 @@ namespace PassSafe.Views
                 e.Cancel = true;
         }
 
-        private void resetBtn_Click(object sender, RoutedEventArgs e)
+        private void cancelBtn_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }

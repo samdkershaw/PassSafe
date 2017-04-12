@@ -30,7 +30,7 @@ namespace PassSafe.ViewModels
             set
             {
                 _SelectedService = value;
-                //OnPropertyChanged();
+                OnPropertyChanged();
             }
         }
 

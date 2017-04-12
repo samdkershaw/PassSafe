@@ -104,7 +104,8 @@ namespace PassSafe.ViewModels
 
         public void Update()
         {
-            this.ServicesList = new Database().GetServices();
+            Database db = new Database();
+            this.ServicesList = db.GetServices();
         }
     }
 }

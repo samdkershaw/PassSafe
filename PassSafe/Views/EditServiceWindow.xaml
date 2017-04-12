@@ -44,7 +44,7 @@
                 <Label Grid.Column="0" Grid.Row="1"
                            Content="Login Name" VerticalAlignment="Center" HorizontalAlignment="Right" />
                 <TextBox Grid.Column="1" Grid.Row="1"
-                         Text="{Binding SelectedService.UserName}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                         Text="{Binding SelectedService.UserName, Mode=TwoWay, BindingGroupName=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
 
                 <Label Grid.Column="0" Grid.Row="2"
                            Content="Email Address" VerticalAlignment="Center" HorizontalAlignment="Right" />
@@ -87,7 +87,7 @@
                     VerticalAlignment="Bottom"
                     DockPanel.Dock="Bottom">
             <Button Command="{Binding SubmitCommand}" x:Name="submitBtn" Content="Save Changes" Margin="7" />
-            <Button Click="resetBtn_Click" x:Name="resetBtn" Content="Cancel"  Margin="7" />
+            <Button Click="cancelBtn_Click" x:Name="cancelBtn" Content="Cancel"  Margin="7" />
         </StackPanel>
     </DockPanel>
 </Controls:MetroWindow>

@@ -3,8 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PassSafe.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
+        xmlns:helpers="clr-namespace:PassSafe.Helpers"
                       mc:Ignorable="d"
         Title="PassSafe"             
         ResizeMode="CanResizeWithGrip"
@@ -16,6 +18,10 @@
     <Window.DataContext>
         <vm:ViewModelMainWindow />
     </Window.DataContext>
+    <Window.Resources>
+        <helpers:VisibleWhenZeroConverter x:Key="VisibleWhenZeroConverter" x:Name="VisibleWhenZeroConverter" />
+        <helpers:DateColourConverter x:Key="DateColourConverter" x:Name="DateColourConverter" />
+    </Window.Resources>
     <Grid
        Width="{Binding ActualWidth, RelativeSource = {RelativeSource AncestorType = {x:Type Window}}}"
        Height="{Binding ActualHeight, RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
@@ -28,10 +34,10 @@
                       Grid.Column="0">
             <DockPanel>
                 <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="Welcome, Sam" HorizontalAlignment="Center" FontSize="25" Foreground="White" FontWeight="DemiBold" Padding="0,10,0,0"/>
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{Binding SelectedService.ServiceName}" HorizontalAlignment="Center" FontSize="25" Foreground="White" FontWeight="DemiBold" Padding="0,10,0,0"/>
                 </StackPanel>
                 <Button Command="{Binding AddServiceCommand}" ToolTip="Settings"
-                            Style="{DynamicResource MetroCircleButtonStyle}" DockPanel.Dock="Bottom" Foreground="Black" Background="White" Height="40" Width="40" HorizontalAlignment="Center" Margin="0,0,0,5" >
+                            Style="{DynamicResource MetroCircleButtonStyle}" DockPanel.Dock="Bottom" Foreground="Black" BorderBrush="White" Background="White" Height="40" Width="40" HorizontalAlignment="Center" Margin="0,0,0,5" >
                     <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                         <Rectangle.OpacityMask>
                             <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
@@ -97,10 +103,19 @@
                 </Grid>
             </Grid>
             <Grid DockPanel.Dock="Top">
-                <ListView ItemsSource="{Binding ServicesList}"
+                    <TextBlock Panel.ZIndex="100" TextAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontSize="18"
+                               Visibility="{Binding Items.Count, ElementName=servicesList, Converter={StaticResource VisibleWhenZeroConverter}}">
+                            <Run Text="Looks like you haven't added any services yet." /><LineBreak/>
+                            <Hyperlink Command="{Binding AddServiceCommand}" Foreground="Gray" TextDecorations="None">
+                                <Bold>
+                                    <Run Text="To add a service, click here."/>
+                                </Bold>
+                            </Hyperlink>
+                    </TextBlock>
+                    <ListView ItemsSource="{Binding ServicesList}"
                           SelectedItem="{Binding SelectedService}"
                           Name="servicesList">
-                    <ListBox.ItemTemplate>
+                        <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Margin="0,2">
                                 <Grid.ColumnDefinitions>
@@ -119,7 +134,7 @@
                                 </Border>
                                 <Border Padding="5,10,5,10"
                                         Grid.Column="2">
-                                    <TextBlock Text="{Binding LastUpdated, StringFormat={}{0:dd/MM/yyyy 'at' HH:mm }}" TextWrapping="WrapWithOverflow" />
+                                    <TextBlock Text="{Binding LastUpdated, StringFormat={}{0:dd/MM/yyyy 'at' HH:mm }}" Foreground="{Binding LastUpdated, Converter={StaticResource DateColourConverter}}" TextWrapping="WrapWithOverflow" />
                                 </Border>
                             </Grid>
                         </DataTemplate>

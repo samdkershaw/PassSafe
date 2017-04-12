@@ -157,7 +157,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Database.cs" />
+    <Compile Include="Helpers\DateColourConverter.cs" />
     <Compile Include="Helpers\ShortDateConverter.cs" />
+    <Compile Include="Helpers\VisibleWhenZeroConverter.cs" />
     <Compile Include="Models\HashedPassword.cs" />
     <Compile Include="Models\Service.cs" />
     <Compile Include="Models\Services.cs" />
@@ -170,6 +172,7 @@
     </Compile>
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\DelegateCommand_old.cs" />
+    <Compile Include="ViewModels\ViewModelAddServiceWindow.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\ViewModelBase_old.cs" />
     <Compile Include="ViewModels\ViewModelEditServiceWindow.cs" />
