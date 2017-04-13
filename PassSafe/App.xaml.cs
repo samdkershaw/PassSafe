@@ -65,7 +65,9 @@ namespace PassSafe
 
             if (childWindow == null)
             {
-                MessageBox.Show("A problem occured with the database...\nCouldn't create or open it after 3 attempts.");
+                MessageBoxResult quit = MessageBox.Show("A problem occured with the database...\nCouldn't create or open it after 3 attempts.",
+                    "Database Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                Shutdown();
             }
         }
     }

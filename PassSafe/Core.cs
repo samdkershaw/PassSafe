@@ -55,6 +55,7 @@ namespace PassSafe
         public static void PrintDebug(string msg)
         {
             Debug.WriteLine(msg);
+
         }
 
         public static DateTime UnixTimestampToDateTime(long timestamp)

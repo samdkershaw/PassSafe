@@ -178,7 +178,7 @@
     <Compile Include="ViewModels\ViewModelEditServiceWindow.cs" />
     <Compile Include="ViewModels\ViewModelMainWindow.cs" />
     <Compile Include="Encryption\HashFactory.cs" />
-    <Compile Include="FileIO.cs" />
+    <Compile Include="ViewModels\ViewModelNewUserWindow.cs" />
     <Compile Include="Views\AddServiceWindow.xaml.cs">
       <DependentUpon>AddServiceWindow.xaml</DependentUpon>
     </Compile>

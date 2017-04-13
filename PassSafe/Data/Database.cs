@@ -46,8 +46,10 @@ namespace PassSafe.Data
             using (this.conn)
             {
                 conn.Open();
-                SQLiteCommand cmd = new SQLiteCommand(sql, this.conn);
-                long userCount = (long)cmd.ExecuteScalar();
+                SQLiteCommand cmd = new SQLiteCommand(this.conn);
+                cmd.CommandText = sql;
+                cmd.CommandType = CommandType.Text; 
+                int userCount = Convert.ToInt32(cmd.ExecuteScalar());
                 return userCount == 1;
             }
         }
