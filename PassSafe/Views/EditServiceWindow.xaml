@@ -62,7 +62,7 @@
                          Text="{Binding SelectedService.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,5"/>
 
                 <Label Grid.Column="0" Grid.Row="5"
-                           Content="Password" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                           Content="New Password" VerticalAlignment="Center" HorizontalAlignment="Right" />
                 <Grid Grid.Column="1" Grid.Row="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>
