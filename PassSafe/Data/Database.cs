@@ -131,14 +131,56 @@ namespace PassSafe.Data
             return new ObservableCollection<Service>();
         }
 
-        public UserInfo GetUserInfo()
+        public bool CreateNewUser(UserInfo userInfo)
         {
-            UserInfo info = UserInfo.Instance;
-            string sql = @"select * from User;";
-            DataTable dataTable = this.Select(sql);
+            bool success = false;
+            try
+            {
+                using (var sqlite3 = new SQLiteConnection(this.connString))
+                {
+                    sqlite3.Open();
+                    SQLiteCommand command = new SQLiteCommand(sqlite3);
+                    command.CommandText = @"INSERT INTO UserInfo (firstName, lastName, masterPassword, masterPasswordHash, emailAddress)
+VALUES (@param1, @param2, @param3, @param4, @param5);";
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SQLiteParameter("@param1", userInfo.Forename));
+                    command.Parameters.Add(new SQLiteParameter("@param2", userInfo.Surname));
+                    command.Parameters.Add(new SQLiteParameter("@param3", userInfo.MasterPassword));
+                    command.Parameters.Add(new SQLiteParameter("@param4", userInfo.PasswordHash));
+                    command.Parameters.Add(new SQLiteParameter("@param5", userInfo.EmailAddress));
+                    command.ExecuteNonQuery();
+                }
+                success = true;
+            }
+            catch (Exception e)
+            {
+                Core.PrintDebug(e.Message);
+            }
+            return success;
+        }
 
-            Dictionary<string, object> dict = new Dictionary<string, object>();
-            return info;
+        public Dictionary<string, object> GetUserInfo()
+        {
+            string sql = @"select * from UserInfo;";
+            DataTable dataTable = this.Select(sql);
+            try
+            {
+                DataRow dr = dataTable.Rows[0];
+                Core.PrintDebug("Reading User Info from database...");
+                Dictionary<string, object> holder = new Dictionary<string, object>();
+                holder.Add("Id", Convert.ToInt32(dr["id"]));
+                holder.Add("Forename", dr.Field<string>("firstName"));
+                holder.Add("Surname", dr.Field<string>("lastName"));
+                holder.Add("MasterPassword", dr.Field<string>("masterPassword"));
+                holder.Add("PasswordHash", dr.Field<string>("masterPasswordHash"));
+                holder.Add("EmailAddress", dr.Field<string>("emailAddress"));
+                return holder;
+            } catch (Exception e)
+            {
+                Core.PrintDebug(e.Message);
+                Core.PrintDebug(e.StackTrace);
+            }
+            return new Dictionary<string, object>();
         }
 
         public DataTable Select(string sql)

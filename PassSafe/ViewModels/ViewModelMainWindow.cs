@@ -25,6 +25,7 @@ namespace PassSafe.ViewModels
             this.AddServiceCommand = new DelegateCommand(this.AddService);
             this.EditServiceCommand = new DelegateCommand(this.EditService, CanEditOrDelete);
             this.DeleteServiceCommand = new DelegateCommand(this.DeleteService, CanEditOrDelete);
+            this.UserInfoHolder = new UserInfo();
         }
 
         UserInfo _UserInfoHolder;
