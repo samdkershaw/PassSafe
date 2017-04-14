@@ -32,35 +32,19 @@
         </Grid.ColumnDefinitions>
         <Grid Background="{DynamicResource AccentColorBrush}"
                       Grid.Column="0">
-            <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding AddServiceCommand}" ToolTip="Settings"
-                                Style="{DynamicResource MetroCircleButtonStyle}"
-                            Foreground="Black" BorderBrush="White" Background="White"
-                            Height="40" Width="40" HorizontalAlignment="Center" >
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                    <Button Command="{Binding AddServiceCommand}" ToolTip="Logout"
-                                Style="{DynamicResource MetroCircleButtonStyle}"
-                            Foreground="Black" BorderBrush="White" Background="White"
-                            Height="40" Width="40" HorizontalAlignment="Center" >
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cancel}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
+            <DockPanel>
+                <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
+                    <TextBlock TextAlignment="Center" TextWrapping="Wrap" Text="{Binding SelectedService.ServiceName}" HorizontalAlignment="Center" FontSize="25" Foreground="White" FontWeight="DemiBold" Padding="0,10,0,0"/>
                 </StackPanel>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap"
-                               Text="{Binding UserInfoHolder.Forename, StringFormat='Welcome, {0}'}" 
-                               HorizontalAlignment="Center" FontSize="25" Foreground="White" 
-                               FontWeight="DemiBold" Padding="0,10,0,0"/>
-
-            </StackPanel>
+                <Button Command="{Binding AddServiceCommand}" ToolTip="Settings"
+                            Style="{DynamicResource MetroCircleButtonStyle}" DockPanel.Dock="Bottom" Foreground="Black" BorderBrush="White" Background="White" Height="40" Width="40" HorizontalAlignment="Center" Margin="0,0,0,5" >
+                    <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                </Button>
+            </DockPanel>
         </Grid>
         <Border BorderThickness="2" BorderBrush="LightGray" Grid.Column="1">
         <DockPanel LastChildFill="True">

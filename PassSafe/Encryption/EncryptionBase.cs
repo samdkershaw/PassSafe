@@ -21,6 +21,5 @@ namespace PassSafe.Encryption
         private BufferedBlockCipher cipher;
         private HMac mac;
         private byte[] key;
-        private const string salt = "823883DJSjDFAJAkljdks!!'##DSAioi29936(*^&6454DSd";
     }
 }

@@ -5,57 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PassSafe"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
-        xmlns:helpers="clr-namespace:PassSafe.Helpers"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         mc:Ignorable="d"
         
-        TitleCaps="False" Title="Welcome to PassSafe"
-        Width="300"
-        SizeToContent="Height"
+        TitleCaps="False"
+        Height="500" Width="400"
         WindowStartupLocation="CenterScreen"            
-        Background="#EEEEEE"
+        Background="LightGray"
         BorderBrush="{DynamicResource AccentColorBrush}"
         ResizeMode="CanMinimize"
         BorderThickness="1">
-    <Window.Resources>
-        <helpers:OpenWhenFocusedConverter x:Key="OpenWhenFocusedConverter" x:Name="OpenWhenFocusedConverter" />
-        <helpers:VisibleWhenErrorsConverter x:Key="VisibleWhenErrorsConverter" x:Name="VisibleWhenErrorsConverter" />
-    </Window.Resources>
-    <StackPanel Orientation="Vertical"
-                FocusManager.FocusedElement="{Binding ElementName=txtForename}">
+    <Window.DataContext>
+        <vm:ViewModelNewUserWindow />
+    </Window.DataContext>
+    <StackPanel Orientation="Vertical">
         <TextBlock Padding="5,15,5,15"
                    Background="Gray"
                    Foreground="White"
                    TextWrapping="Wrap">
-            <Run Text="PassSafe helps to keep you safe online by remembering passwords for you, so that you don't have to. Enter your details below to get started." />
-            <Italic>
-                <Run Text="If we're not mistaken, you seem to be new here. Click " />
-                    <Hyperlink Command="{Binding HelpCommand}">here</Hyperlink>
-                    <Run Text=" for more information about PassSafe."/>
+            <Bold><Run FontSize="20" Text="Welcome to PassSafe."/></Bold>
+            <LineBreak/>
+            <Italic><Run Text="If we're not mistaken, you seem to be new here. Click " />
+                <Hyperlink Command="{Binding HelpCommand}">here</Hyperlink>
+                <Run Text=" for more information."/>
+                <LineBreak/>
+                <LineBreak/>
             </Italic>
+            <Run Text="PassSafe helps to keep you safe online by remembering passwords for you, so that you don't have to. Enter your details below to get started." />
         </TextBlock>
-        <ListView Padding="5,15,5,15"
-                   Background="Red"
-                   ItemsSource="{Binding ErrorsList}"
-                  Focusable="False"
-                   Visibility="{Binding Path=Errors, Converter={StaticResource VisibleWhenErrorsConverter},
-            Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <ListView.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Transparent" />
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-            </ListView.Resources>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <TextBlock TextWrapping="Wrap"
-                                   FontWeight="DemiBold"
-                                   Foreground="White"
-                                   Text="{Binding}"/>
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListView>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
@@ -66,48 +43,7 @@
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
                 <RowDefinition Height="40" />
-                <RowDefinition Height="40" />
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.Column="0"
-                   Content="Forename" VerticalAlignment="Center" HorizontalAlignment="Right"  />
-            <TextBox Grid.Row="0" Grid.Column="1" 
-                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"
-                     Text="{Binding Forename, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="30" x:Name="txtForename">
-                <TextBox.ToolTip>
-                    <TextBlock>
-                        <Run Text="This is a test" />
-                    </TextBlock>
-                </TextBox.ToolTip>
-            </TextBox>
-
-            <Label Grid.Row="1" Grid.Column="0"
-                   Content="Surname" VerticalAlignment="Center" HorizontalAlignment="Right" />
-            <TextBox Grid.Row="1" Grid.Column="1" 
-                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0" 
-                     Text="{Binding Surname, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="40" />
-
-            <Label Grid.Row="2" Grid.Column="0"
-                   Content="Email Address" VerticalAlignment="Center" HorizontalAlignment="Right" />
-            <TextBox Grid.Row="2" Grid.Column="1" 
-                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0" 
-                     Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}"
-                     MaxLength="100" />
-
-            <Label Grid.Row="3" Grid.Column="0"
-                   Content="Password" VerticalAlignment="Center" HorizontalAlignment="Right" />
-            <PasswordBox Grid.Row="3" Grid.Column="1" 
-                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"
-                         MaxLength="40" PasswordChanged="PasswordBox_PasswordChanged" />
-
-            <Label Grid.Row="4" Grid.Column="0"
-                   Content="Re-enter Password" VerticalAlignment="Center" HorizontalAlignment="Right" />
-            <PasswordBox Grid.Row="4" Grid.Column="1" 
-                     HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"
-                         MaxLength="40" PasswordChanged="ReEnterPasswordBox_PasswordChanged" />
         </Grid>
-        <Button Command="{Binding SubmitCommand}" Content="Get Started" HorizontalAlignment="Center" Margin="20"
-                IsDefault="True"/>
     </StackPanel>
 </Controls:MetroWindow>

@@ -13,7 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Diagnostics;
-using PassSafe.ViewModels;
 
 namespace PassSafe.Views
 {
@@ -25,32 +24,6 @@ namespace PassSafe.Views
         public NewUserWindow()
         {
             InitializeComponent();
-            ViewModelNewUserWindow vm = new ViewModelNewUserWindow();
-            this.DataContext = vm;
-            if (vm.CloseAction == null)
-                vm.CloseAction = new Action(this.OpenMain);
-        }
-
-        private void OpenMain()
-        {
-            new MainWindow().Show();
-            this.Close();
-        }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext != null)
-            {
-                ((dynamic)this.DataContext).Password = ((PasswordBox)sender).SecurePassword;
-            }
-        }
-
-        private void ReEnterPasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (this.DataContext != null)
-            {
-                ((dynamic)this.DataContext).ReEnterPassword = ((PasswordBox)sender).SecurePassword;
-            }
         }
     }
 }

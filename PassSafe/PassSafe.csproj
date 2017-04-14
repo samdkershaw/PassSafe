@@ -158,8 +158,7 @@
     </ApplicationDefinition>
     <Compile Include="Data\Database.cs" />
     <Compile Include="Helpers\DateColourConverter.cs" />
-    <Compile Include="Helpers\OpenWhenFocusedConverter.cs" />
-    <Compile Include="Helpers\VisibleWhenErrorsConverter.cs" />
+    <Compile Include="Helpers\ShortDateConverter.cs" />
     <Compile Include="Helpers\VisibleWhenZeroConverter.cs" />
     <Compile Include="Models\HashedPassword.cs" />
     <Compile Include="Models\Service.cs" />
@@ -190,9 +189,6 @@
       <DependentUpon>NewUserWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="PasswordFactory.cs" />
-    <Compile Include="Views\ReEnterPasswordWindow.xaml.cs">
-      <DependentUpon>ReEnterPasswordWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SplashScreen.xaml.cs">
       <DependentUpon>SplashScreen.xaml</DependentUpon>
     </Compile>
@@ -237,10 +233,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\NewUserWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ReEnterPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

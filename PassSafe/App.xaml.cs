@@ -49,11 +49,12 @@ namespace PassSafe
                     if (db.IsReturningUser())
                     {
                         childWindow = new MainWindow();
+                        
                     } else
                     {
                         childWindow = new NewUserWindow();
                     }
-                    childWindow.ShowDialog();
+                    childWindow.Show();
                     break;
                 }
                 else
@@ -67,15 +68,6 @@ namespace PassSafe
                 MessageBoxResult quit = MessageBox.Show("A problem occured with the database...\nCouldn't create or open it after 3 attempts.",
                     "Database Error", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 Shutdown();
-            }
-        }
-
-        public void OpenMainWindow()
-        {
-            if (childWindow.IsLoaded)
-            {
-                new MainWindow().Show();
-                childWindow.Close();
             }
         }
     }
