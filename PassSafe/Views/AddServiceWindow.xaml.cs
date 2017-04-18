@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using MahApps.Metro;
+using PassSafe.ViewModels;
 
 namespace PassSafe.Views
 {
@@ -25,6 +26,10 @@ namespace PassSafe.Views
         {
             InitializeComponent();
             this.Closing += AddServiceWindow_Closing;
+            ViewModelAddServiceWindow vm = new ViewModelAddServiceWindow();
+            this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.Close);
         }
 
         private void AddServiceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
@@ -33,11 +38,6 @@ namespace PassSafe.Views
                                                         "Cancel?", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.No)
                 e.Cancel = true;
-        }
-
-        private void cancelBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
     }
 }

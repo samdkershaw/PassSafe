@@ -30,38 +30,34 @@
                               MaxWidth="250"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid Background="{DynamicResource AccentColorBrush}"
+        <DockPanel Background="{DynamicResource AccentColorBrush}"
                       Grid.Column="0">
-            <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
-                <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding AddServiceCommand}" ToolTip="Settings"
-                                Style="{DynamicResource MetroCircleButtonStyle}"
-                            Foreground="Black" BorderBrush="White" Background="White"
-                            Height="40" Width="40" HorizontalAlignment="Center" >
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_settings}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                    <Button Command="{Binding AddServiceCommand}" ToolTip="Logout"
-                                Style="{DynamicResource MetroCircleButtonStyle}"
-                            Foreground="Black" BorderBrush="White" Background="White"
-                            Height="40" Width="40" HorizontalAlignment="Center" >
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_cancel}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                </StackPanel>
-            <TextBlock TextAlignment="Center" TextWrapping="Wrap"
+
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap" DockPanel.Dock="Top"
                                Text="{Binding UserInfoHolder.Forename, StringFormat='Welcome, {0}'}" 
                                HorizontalAlignment="Center" FontSize="25" Foreground="White" 
-                               FontWeight="DemiBold" Padding="0,10,0,0"/>
+                               FontWeight="DemiBold" Padding="0,10,0,50"/>
+                <TextBlock TextAlignment="Center" TextWrapping="Wrap"
+                           DockPanel.Dock="Bottom" VerticalAlignment="Center"
+                           FontSize="20" FontWeight="DemiBold">
+                    <Hyperlink Foreground="WhiteSmoke" Command="{Binding OpenURL}" CommandParameter="settings">
+                        <Run Text="Settings" />
+                    </Hyperlink>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <Hyperlink Foreground="WhiteSmoke" Command="{Binding OpenURL}" CommandParameter="help">
+                        <Run Text="Help" />
+                    </Hyperlink>
+                    <LineBreak/>
+                    <LineBreak/>
+                    <Hyperlink Foreground="WhiteSmoke" Command="{Binding OpenURL}" CommandParameter="logout">
+                        <Run Text="Logout" />
+                    </Hyperlink>
+                    <LineBreak/>
+                </TextBlock>
 
-            </StackPanel>
-        </Grid>
+            
+        </DockPanel>
         <Border BorderThickness="2" BorderBrush="LightGray" Grid.Column="1">
         <DockPanel LastChildFill="True">
             <Border Padding="5"
@@ -92,7 +88,18 @@
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
-                </StackPanel>
+                        <TextBlock VerticalAlignment="Center" Padding="10">
+                            <Bold>
+                                <Run Text="{Binding ElementName=servicesList, Path=Items.Count, Mode=OneWay}" />
+                            </Bold>
+                            <Run Text="passwords stored" />
+                            <LineBreak/>
+                            <Italic>
+                                <Run Text="Click on a service below to view more details"
+                                     Foreground="#222222"/>
+                            </Italic>
+                        </TextBlock>
+                    </StackPanel>
             </Border>
             <Grid DockPanel.Dock="Top"
                   Height="40"

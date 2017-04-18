@@ -159,6 +159,7 @@
     <Compile Include="Data\Database.cs" />
     <Compile Include="Helpers\DateColourConverter.cs" />
     <Compile Include="Helpers\OpenWhenFocusedConverter.cs" />
+    <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\VisibleWhenErrorsConverter.cs" />
     <Compile Include="Helpers\VisibleWhenZeroConverter.cs" />
     <Compile Include="Models\HashedPassword.cs" />
@@ -166,11 +167,6 @@
     <Compile Include="Models\Services.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\Websites.cs" />
-    <Compile Include="PassSafeDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>PassSafeDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\DelegateCommand.cs" />
     <Compile Include="ViewModels\DelegateCommand_old.cs" />
     <Compile Include="ViewModels\ViewModelAddServiceWindow.cs" />
@@ -268,17 +264,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="PassSafeDataSet.xsc">
-      <DependentUpon>PassSafeDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="PassSafeDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>PassSafeDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="PassSafeDataSet.xss">
-      <DependentUpon>PassSafeDataSet.xsd</DependentUpon>
-    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

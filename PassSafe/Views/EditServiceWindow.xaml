@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PassSafe.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
-        mc:Ignorable="d" MinHeight="550" Height="550" MinWidth="400" Width="400"
+        mc:Ignorable="d" SizeToContent="Height" MinWidth="400" Width="400"
                       Background="#EDEDED"
                       Title="{Binding TitleText}"
                       WindowStartupLocation="CenterScreen"

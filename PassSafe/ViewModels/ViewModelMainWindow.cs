@@ -18,6 +18,7 @@ namespace PassSafe.ViewModels
         public DelegateCommand AddServiceCommand { get; private set; }
         public DelegateCommand EditServiceCommand { get; private set; }
         public DelegateCommand DeleteServiceCommand { get; private set; }
+        public DelegateCommand OpenURL { get; private set; }
 
         public ViewModelMainWindow()
         {
@@ -25,7 +26,14 @@ namespace PassSafe.ViewModels
             this.AddServiceCommand = new DelegateCommand(this.AddService);
             this.EditServiceCommand = new DelegateCommand(this.EditService, CanEditOrDelete);
             this.DeleteServiceCommand = new DelegateCommand(this.DeleteService, CanEditOrDelete);
+            this.OpenURL = new DelegateCommand(this.OpenBrowser);
             this.UserInfoHolder = new UserInfo();
+        }
+
+        private void OpenBrowser(object _url)
+        {
+            string url = (string)_url;
+            Core.PrintDebug(url);
         }
 
         UserInfo _UserInfoHolder;

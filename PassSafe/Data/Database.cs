@@ -15,7 +15,6 @@ namespace PassSafe.Data
     public class Database
     {
         string fileName;
-        SQLiteConnection conn;
         string connString;
 
         public Database()
@@ -24,33 +23,54 @@ namespace PassSafe.Data
             this.connString = String.Format("Data Source={0};Version=3;", this.fileName);
 
             FileInfo dbInfo = new FileInfo(this.fileName);
-
-            //if (!dbInfo.Exists || dbInfo.Length == 0)
-            //{
-            //    if (!CreateDatabase())
-            //        return;
-            //}
-
-            this.conn = new SQLiteConnection(this.connString);
         }
 
         public bool DoesDatabaseExist()
         {
             FileInfo dbInfo = new FileInfo(this.fileName);
-            return dbInfo.Exists;
+            return dbInfo.Exists && this.VerifyTableIntegrity();
+        }
+
+        public bool VerifyTableIntegrity()
+        {
+            string userInfoSql = "SELECT Count(*) FROM UserInfo";
+            string servicesSql = "SELECT Count(*) FROM Services";
+            using (var conn = new SQLiteConnection(this.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = userInfoSql;
+                    command.CommandType = CommandType.Text;
+                    int userCount = Convert.ToInt32(command.ExecuteScalar());
+
+                } catch (SQLiteException e)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         public bool IsReturningUser()
         {
             string sql = "SELECT Count(*) FROM UserInfo";
-            using (this.conn)
+            using (var conn = new SQLiteConnection(this.connString))
             {
-                conn.Open();
-                SQLiteCommand cmd = new SQLiteCommand(this.conn);
-                cmd.CommandText = sql;
-                cmd.CommandType = CommandType.Text; 
-                int userCount = Convert.ToInt32(cmd.ExecuteScalar());
-                return userCount == 1;
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand cmd = new SQLiteCommand(conn);
+                    cmd.CommandText = sql;
+                    cmd.CommandType = CommandType.Text;
+                    int userCount = Convert.ToInt32(cmd.ExecuteScalar());
+                    return userCount == 1;
+                } catch (SQLiteException e)
+                {
+                    Core.PrintDebug(e.Message);
+                    return false;
+                }
             }
         }
 
@@ -59,6 +79,16 @@ namespace PassSafe.Data
             bool success = false;
             try
             {
+                if (File.Exists(this.fileName))
+                {
+                    try
+                    {
+                        File.Delete(this.fileName);
+                    } catch (IOException e)
+                    {
+                        Core.PrintDebug(e.Message);
+                    }
+                }
                 SQLiteConnection.CreateFile(this.fileName);
                 using (var sqlite3 = new SQLiteConnection(this.connString))
                 {
@@ -186,20 +216,23 @@ VALUES (@param1, @param2, @param3, @param4, @param5);";
         public DataTable Select(string sql)
         {
             DataTable dt = new DataTable();
-            try
+            using (var conn = new SQLiteConnection(this.connString))
             {
-                this.conn.Open();
-                //SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
-                SQLiteCommand cmd = new SQLiteCommand(sql, this.conn);
-                SQLiteDataReader reader = cmd.ExecuteReader();
-                dt.Load(reader);
-                reader.Close();
-                this.conn.Close();
-                return dt;
-            } catch (SQLiteException e)
-            {
-                Core.PrintDebug(e.Message);
-                Core.PrintDebug(e.StackTrace);
+                try
+                {
+                    conn.Open();
+                    //SQLiteDataAdapter da = new SQLiteDataAdapter(sql, conn);
+                    SQLiteCommand cmd = new SQLiteCommand(sql, conn);
+                    SQLiteDataReader reader = cmd.ExecuteReader();
+                    dt.Load(reader);
+                    reader.Close();
+                    return dt;
+                }
+                catch (SQLiteException e)
+                {
+                    Core.PrintDebug(e.Message);
+                    Core.PrintDebug(e.StackTrace);
+                }
             }
             return dt;
         }
@@ -207,27 +240,24 @@ VALUES (@param1, @param2, @param3, @param4, @param5);";
         public bool DeleteService(int rowId)
         {
             bool success = false;
-            try
+            using (var conn = new SQLiteConnection(this.connString))
             {
-                SQLiteCommand cmd = new SQLiteCommand();
-                this.conn.Open();
-                SQLiteTransaction trans = conn.BeginTransaction();
-                cmd.Connection = this.conn;
-                cmd.CommandText = "delete from services where id = @id";
-                cmd.Parameters.AddWithValue("@id", rowId.ToString());
-                cmd.ExecuteNonQuery();
-                trans.Commit();
-                success = true;
-            } catch (Exception e)
-            {
-                Core.PrintDebug(e.Message);
-                Core.PrintDebug(e.StackTrace);
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand cmd = new SQLiteCommand(conn);
+                    cmd.CommandText = "delete from services where id = @id";
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@id", rowId.ToString());
+                    cmd.ExecuteNonQuery();
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Core.PrintDebug(e.Message);
+                    Core.PrintDebug(e.StackTrace);
+                }
             }
-            finally
-            {
-                this.conn.Close();
-            }
-
             return success;
         }
     }

@@ -35,25 +35,20 @@ namespace PassSafe.ViewModels
 
         private void Submit()
         {
-            this.SubmitCommand.RaiseCanExecuteChanged();
-            if (IsInputValid())
+            //this.SubmitCommand.RaiseCanExecuteChanged();
+            if (!IsInputValid())
+                return;
+            Database db = new Database();
+            UserInfo userInfo = new UserInfo(false);
+            userInfo.Forename = this.Forename;
+            userInfo.Surname = this.Surname;
+            userInfo.EmailAddress = this.EmailAddress;
+            userInfo.MasterPassword = "";
+            userInfo.PasswordHash = "";
+            if (db.CreateNewUser(userInfo))
             {
-                Database db = new Database();
-                UserInfo userInfo = new UserInfo(false);
-                userInfo.Forename = this.Forename;
-                userInfo.Surname = this.Surname;
-                userInfo.EmailAddress = this.EmailAddress;
-                userInfo.MasterPassword = "";
-                userInfo.PasswordHash = "";
-                if (db.CreateNewUser(userInfo))
-                {
-                    Core.PrintDebug("Success!");
-                    this.CloseAction();
-                }
-            }
-            else
-            {
-                Core.PrintDebug("Error!");
+                Core.PrintDebug("Success!");
+                this.CloseAction();
             }
         }
 
@@ -89,6 +84,8 @@ namespace PassSafe.ViewModels
                 else
                     this.ErrorsList.Add("The passwords you entered don't match.");
             }
+            else
+                this.ErrorsList.Add("You need to enter a password in both fields.");
 
             bool valid = ForenameValid && SurnameValid && EmailAddressValid && PasswordValid && PasswordsMatch;
             this.Errors = !valid;

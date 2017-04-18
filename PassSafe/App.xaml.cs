@@ -53,7 +53,7 @@ namespace PassSafe
                     {
                         childWindow = new NewUserWindow();
                     }
-                    childWindow.ShowDialog();
+                    childWindow.Show();
                     break;
                 }
                 else
