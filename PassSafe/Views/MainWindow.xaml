@@ -64,27 +64,12 @@
                     DockPanel.Dock="Top"
                     Background="LightGray">
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding AddServiceCommand}" ToolTip="Add Service"
-                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
+                    <Button Command="{Binding AddServiceCommand}"
+                            ToolTip="Add Service" Style="{DynamicResource MetroCircleButtonStyle}" 
+                            Foreground="Black" Height="50" Width="50">
                         <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
                             <Rectangle.OpacityMask>
                                 <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_add}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                    <Button Command="{Binding EditServiceCommand}" ToolTip="Edit Service"
-                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_edit}" />
-                            </Rectangle.OpacityMask>
-                        </Rectangle>
-                    </Button>
-                    <Button Command="{Binding DeleteServiceCommand}" ToolTip="Delete Service"
-                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Background="Red" Height="50" Width="50" BorderBrush="AliceBlue">
-                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                            <Rectangle.OpacityMask>
-                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
                             </Rectangle.OpacityMask>
                         </Rectangle>
                     </Button>
@@ -95,10 +80,35 @@
                             <Run Text="passwords stored" />
                             <LineBreak/>
                             <Italic>
-                                <Run Text="Click on a service below to view more details"
+                                <Run Text="Use the buttons on the right to manipulate the selected service"
                                      Foreground="#222222"/>
                             </Italic>
                         </TextBlock>
+                        <Button Command="{Binding EditServiceCommand}" ToolTip="Edit Service"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
+                        <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                            <Rectangle.OpacityMask>
+                                <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_edit}" />
+                            </Rectangle.OpacityMask>
+                        </Rectangle>
+                    </Button>
+                    
+                        <Button Command="{Binding ViewDetailsCommand}" ToolTip="View Details"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Height="50" Width="50">
+                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_eye}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
+                        <Button Command="{Binding DeleteServiceCommand}" ToolTip="Delete Service"
+                            Style="{DynamicResource MetroCircleButtonStyle}" Foreground="Black" Background="Red" Height="50" Width="50" BorderBrush="AliceBlue">
+                            <Rectangle Width="15" Height="15" Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                                <Rectangle.OpacityMask>
+                                    <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_delete}" />
+                                </Rectangle.OpacityMask>
+                            </Rectangle>
+                        </Button>
                     </StackPanel>
             </Border>
             <Grid DockPanel.Dock="Top"
@@ -129,28 +139,29 @@
                     <TextBlock Panel.ZIndex="100" TextAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontSize="18"
                                Visibility="{Binding Items.Count, ElementName=servicesList, Converter={StaticResource VisibleWhenZeroConverter}}">
                             <Run Text="Looks like you haven't added any services yet." /><LineBreak/>
-                            <Hyperlink Command="{Binding AddServiceCommand}" Foreground="Gray" TextDecorations="None">
+                            <Hyperlink Command="{Binding AddServiceCommand}"
+                                       Foreground="Gray" TextDecorations="None">
                                 <Bold>
                                     <Run Text="To add a service, click here."/>
                                 </Bold>
                             </Hyperlink>
                     </TextBlock>
-                    <ListView ItemsSource="{Binding ServicesList}"
+                    <ListView ItemsSource="{Binding ServicesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedService}"
                           Name="servicesList">
                         <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid Margin="0,2">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="3*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
-                                    <ColumnDefinition Width="2*" />
-                                </Grid.ColumnDefinitions>
-                                <Border Padding="5,10,5,10"
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="3*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Padding="5,10,5,10"
                                         Grid.Column="0">
-                                    <TextBlock Text="{Binding ServiceName}" />
-                                </Border>
+                                        <TextBlock Text="{Binding ServiceName}" />
+                                    </Border>
                                 <Border Padding="5,10,5,10"
                                         Grid.Column="1">
                                     <TextBlock Text="{Binding UserName}" TextWrapping="WrapWithOverflow"/>

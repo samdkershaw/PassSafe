@@ -161,6 +161,37 @@ namespace PassSafe.Data
             return new ObservableCollection<Service>();
         }
 
+        public bool AddService(Service service)
+        {
+            bool success = false;
+            string sql = @"INSERT INTO Services (serviceName, email, loginName, description, password, hash, lastUpdated, website)
+VALUES (@param1, @param2, @param3, @param4, @param5, @param6, @param7, @param8);";
+            using (var conn = new SQLiteConnection(this.connString))
+            {
+                try
+                {
+                    conn.Open();
+                    SQLiteCommand command = new SQLiteCommand(conn);
+                    command.CommandText = sql;
+                    command.CommandType = CommandType.Text;
+                    command.Parameters.Add(new SQLiteParameter("@param1", service.ServiceName));
+                    command.Parameters.Add(new SQLiteParameter("@param2", service.Email));
+                    command.Parameters.Add(new SQLiteParameter("@param3", service.UserName));
+                    command.Parameters.Add(new SQLiteParameter("@param4", service.Description));
+                    command.Parameters.Add(new SQLiteParameter("@param5", service.HashedPassword));
+                    command.Parameters.Add(new SQLiteParameter("@param6", service.PasswordHash));
+                    command.Parameters.Add(new SQLiteParameter("@param7", Core.DateTimeToUnixTimestamp(service.LastUpdated)));
+                    command.Parameters.Add(new SQLiteParameter("@param8", service.Website));
+                    command.ExecuteNonQuery();
+                    return true;
+                } catch (Exception e)
+                {
+                    Core.PrintDebug(e.Message);
+                    return false;
+                }
+            }
+        }
+
         public bool CreateNewUser(UserInfo userInfo)
         {
             bool success = false;

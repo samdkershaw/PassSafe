@@ -61,12 +61,8 @@ namespace PassSafe.Models
                 return _Email;
             } set
             {
-                if (Core.IsEmailAcceptable(value))
-                {
-                    _Email = value;
-                    RaisePropertyChanged("Email");
-                }
-                else return;
+                _Email = value;
+                RaisePropertyChanged("Email");
             }
         }
 

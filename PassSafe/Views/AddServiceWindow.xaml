@@ -23,7 +23,7 @@
                    Background="LightGray"
                    TextAlignment="Left"
                    TextWrapping="Wrap">
-            <Run Text="You can add more services to the services list. Just enter the details below."/>
+            <Run Text="PassSafe can store the details of another service for you. Just enter the details below."/>
             <LineBreak/>
             <LineBreak/>
             <Run Text="Click the"/>
@@ -53,7 +53,7 @@
                 </Grid.RowDefinitions>
                 <Label Grid.Column="0" Grid.Row="0"
                            Content="Service Name" VerticalAlignment="Center" HorizontalAlignment="Right" />
-                <TextBox Grid.Column="1" Grid.Row="0"
+                <TextBox Grid.Column="1" Grid.Row="0" x:Name="txtServiceName"
                          Text="{Binding ServiceName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0" />
 
                 <Label Grid.Column="0" Grid.Row="1"
@@ -96,8 +96,8 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     DockPanel.Dock="Bottom">
-            <Button Command="{Binding SubmitCommand}" x:Name="submitBtn" Content="Add Service" Margin="7" />
-            <Button Command="{Binding CancelCommand}" x:Name="cancelBtn" Content="Cancel"  Margin="7" />
+            <Button Command="{Binding SubmitCommand}" IsDefault="True" x:Name="submitBtn" Content="Add Service" Margin="7" />
+            <Button Command="{Binding CancelCommand}" IsCancel="True" x:Name="cancelBtn" Content="Cancel"  Margin="7" />
         </StackPanel>
     </DockPanel>
 </Controls:MetroWindow>

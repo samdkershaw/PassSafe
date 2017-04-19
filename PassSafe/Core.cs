@@ -54,10 +54,17 @@ namespace PassSafe
             }
         }
 
+        public static bool IsUrlAcceptable(string _uri)
+        {
+            Uri uriResult;
+            bool result = Uri.TryCreate(_uri, UriKind.Absolute, out uriResult)
+                && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+            return result;
+        }
+
         public static void PrintDebug(string msg)
         {
             Debug.WriteLine(msg);
-
         }
         
         public static DateTime UnixTimestampToDateTime(long timestamp)
@@ -69,8 +76,8 @@ namespace PassSafe
 
         public static long DateTimeToUnixTimestamp(DateTime date)
         {
-            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return date.Subtract(epoch).Seconds;
+            DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Local);
+            return (long)Math.Ceiling(date.Subtract(epoch).TotalSeconds);
         }
 
         public static string SecureStringToString(SecureString secureString)

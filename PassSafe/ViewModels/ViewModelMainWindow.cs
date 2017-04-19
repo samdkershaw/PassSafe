@@ -14,10 +14,10 @@ namespace PassSafe.ViewModels
 {
     class ViewModelMainWindow : ViewModelBase
     {
-        public ObservableCollection<Service> ServicesList { get; set; }
         public DelegateCommand AddServiceCommand { get; private set; }
         public DelegateCommand EditServiceCommand { get; private set; }
         public DelegateCommand DeleteServiceCommand { get; private set; }
+        public DelegateCommand ViewDetailsCommand { get; private set; }
         public DelegateCommand OpenURL { get; private set; }
 
         public ViewModelMainWindow()
@@ -26,6 +26,7 @@ namespace PassSafe.ViewModels
             this.AddServiceCommand = new DelegateCommand(this.AddService);
             this.EditServiceCommand = new DelegateCommand(this.EditService, CanEditOrDelete);
             this.DeleteServiceCommand = new DelegateCommand(this.DeleteService, CanEditOrDelete);
+            this.ViewDetailsCommand = new DelegateCommand(this.ViewServiceDetails, CanEditOrDelete);
             this.OpenURL = new DelegateCommand(this.OpenBrowser);
             this.UserInfoHolder = new UserInfo();
         }
@@ -34,6 +35,16 @@ namespace PassSafe.ViewModels
         {
             string url = (string)_url;
             Core.PrintDebug(url);
+        }
+
+        ObservableCollection<Service> _ServicesList;
+        public ObservableCollection<Service> ServicesList
+        {
+            get { return _ServicesList; }
+            set
+            {
+                SetProperty(ref _ServicesList, value);
+            }
         }
 
         UserInfo _UserInfoHolder;
@@ -63,6 +74,7 @@ namespace PassSafe.ViewModels
                     SetProperty(ref _SelectedService, value);
                     EditServiceCommand.RaiseCanExecuteChanged();
                     DeleteServiceCommand.RaiseCanExecuteChanged();
+                    ViewDetailsCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -71,6 +83,7 @@ namespace PassSafe.ViewModels
         {
             AddServiceWindow win = new AddServiceWindow();
             win.ShowDialog();
+            this.Update();
         }
 
         private void EditService()
@@ -84,12 +97,15 @@ namespace PassSafe.ViewModels
             Core.PrintDebug(SelectedService.Id.ToString());
 
             new EditServiceWindow(SelectedService).ShowDialog();
+
+            this.Update();
         }
 
         private void DeleteService()
         {
             if (SelectedService == null) {
-                MessageBox.Show("ERROR: You need to select a service in order to do that.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("ERROR: You need to select a service in order to do that.", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
@@ -106,6 +122,16 @@ namespace PassSafe.ViewModels
             }
         }
 
+        private void ViewServiceDetails()
+        {
+            if (SelectedService == null)
+            {
+                return;
+            }
+
+            Core.PrintDebug("View Details");
+        }
+
         private bool CanEditOrDelete()
         {
             return SelectedService != null;
@@ -114,6 +140,8 @@ namespace PassSafe.ViewModels
         public void Update()
         {
             Database db = new Database();
+            if (this.ServicesList != null)
+                this.ServicesList = null;
             this.ServicesList = db.GetServices();
         }
     }

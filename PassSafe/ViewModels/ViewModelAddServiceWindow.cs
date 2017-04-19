@@ -7,6 +7,8 @@ using PassSafe.Data;
 using PassSafe.Models;
 using System.Security;
 using System.Collections.ObjectModel;
+using System.Windows;
+using PassSafe.Views;
 
 namespace PassSafe.ViewModels
 {
@@ -116,7 +118,24 @@ namespace PassSafe.ViewModels
             Database db = new Database();
             Service service = new Service();
             //service.Id = -1;
+            service.ServiceName = this.ServiceName;
+            service.UserName = this.LoginName;
+            service.Email = this.EmailAddress;
+            service.Website = this.Website;
+            service.HashedPassword = this.Password;
+            service.PasswordHash = "";
+            service.Description = this.Description;
             service.LastUpdated = DateTime.Now;
+            if (db.AddService(service))
+            {
+                Core.PrintDebug(String.Format("Service {0} added successfully.", service.ServiceName));
+                this.CloseAction();
+            } else
+            {
+                this.ErrorsList.Clear();
+                this.ErrorsList.Add("An error occured.");
+                this.Errors = true;
+            }
         }
 
         private bool IsInputValid()
@@ -135,18 +154,18 @@ namespace PassSafe.ViewModels
             else
                 this.ErrorsList.Add("The login name can't be empty.");
 
-            if (!String.IsNullOrEmpty(EmailAddress))
+            if (!String.IsNullOrEmpty(EmailAddress) && Core.IsEmailAcceptable(EmailAddress))
                 emailAddressValid = true;
             else
-                this.ErrorsList.Add("The email address can't be empty.");
+                this.ErrorsList.Add("The email address was invalid");
 
-            if (!String.IsNullOrEmpty(Website))
+            if (!String.IsNullOrEmpty(Website) && Core.IsUrlAcceptable(Website))
                 websiteValid = true;
             else
-                this.ErrorsList.Add("The website can't be empty.");
+                this.ErrorsList.Add("The website was invalid.");
 
             // Description isn't required to have a value entered.
-            if (!String.IsNullOrEmpty(Description))
+            if (String.IsNullOrEmpty(Description))
                 Description = "";
 
             if (!String.IsNullOrEmpty(Password) && Password.Length >= 6)
