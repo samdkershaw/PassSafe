@@ -82,7 +82,15 @@ namespace PassSafe
 
         public static string SecureStringToString(SecureString secureString)
         {
-            return null;
+            IntPtr unmanagedBytes = IntPtr.Zero;
+            try
+            {
+                unmanagedBytes = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(unmanagedBytes);
+            } finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(unmanagedBytes);
+            }
         }
 
         public static bool IsEqualTo(this SecureString ss1, SecureString ss2)

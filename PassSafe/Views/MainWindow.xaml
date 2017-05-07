@@ -14,7 +14,7 @@
         MinWidth="900" MinHeight="600"
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
-        TitleCaps="False">
+        TitleCaps="False" SizeToContent="Manual">
     <Window.DataContext>
         <vm:ViewModelMainWindow />
     </Window.DataContext>

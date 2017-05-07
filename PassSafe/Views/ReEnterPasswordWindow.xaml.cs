@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using PassSafe.ViewModels;
 
 namespace PassSafe.Views
 {
@@ -23,6 +24,17 @@ namespace PassSafe.Views
         public ReEnterPasswordWindow()
         {
             InitializeComponent();
+
+            ViewModelReEnterPasswordWindow vm = new ViewModelReEnterPasswordWindow();
+            this.DataContext = vm;
+        }
+
+        private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (this.DataContext != null)
+            {
+                ((dynamic)this.DataContext).Password = ((PasswordBox)sender).SecurePassword;
+            }
         }
     }
 }

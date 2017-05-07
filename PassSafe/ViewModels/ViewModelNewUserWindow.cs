@@ -1,4 +1,5 @@
 ﻿using PassSafe.Data;
+using PassSafe.Encryption;
 using PassSafe.Models;
 using PassSafe.Views;
 using System;
@@ -43,8 +44,10 @@ namespace PassSafe.ViewModels
             userInfo.Forename = this.Forename;
             userInfo.Surname = this.Surname;
             userInfo.EmailAddress = this.EmailAddress;
-            userInfo.MasterPassword = "";
-            userInfo.PasswordHash = "";
+            PasswordHasher hasher = new PasswordHasher();
+            hasher.HashPassword(Core.SecureStringToString(this.Password));
+            userInfo.MasterPassword = hasher.HashedPassword;
+            userInfo.PasswordHash = hasher.SaltValue;
             if (db.CreateNewUser(userInfo))
             {
                 Core.PrintDebug("Success!");
