@@ -23,11 +23,6 @@ namespace PassSafe
         //      # First Run or not
         //      # Google Sign In is valid
 
-        private delegate void updateDelegate();
-
-        private bool isFirstTimeUser;
-        Timer t;
-
         //Windows
         Views.SplashScreen splashScreen;
         Window childWindow;

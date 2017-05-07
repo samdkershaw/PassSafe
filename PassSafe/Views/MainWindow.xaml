@@ -32,7 +32,8 @@
         </Grid.ColumnDefinitions>
         <DockPanel Background="{DynamicResource AccentColorBrush}"
                       Grid.Column="0">
-
+            <Image Source="/Resources/SplashScreen.png" Height="110" 
+                   DockPanel.Dock="Top"/>
             <TextBlock TextAlignment="Center" TextWrapping="Wrap" DockPanel.Dock="Top"
                                Text="{Binding UserInfoHolder.Forename, StringFormat='Welcome, {0}'}" 
                                HorizontalAlignment="Center" FontSize="25" Foreground="White" 
@@ -138,7 +139,7 @@
             <Grid DockPanel.Dock="Top">
                     <TextBlock Panel.ZIndex="100" TextAlignment="Center" VerticalAlignment="Center" Foreground="Gray" FontSize="18"
                                Visibility="{Binding Items.Count, ElementName=servicesList, Converter={StaticResource VisibleWhenZeroConverter}}">
-                            <Run Text="Looks like you haven't added any services yet." /><LineBreak/>
+                            <Run Text="It looks like you haven't added any services yet." /><LineBreak/>
                             <Hyperlink Command="{Binding AddServiceCommand}"
                                        Foreground="Gray" TextDecorations="None">
                                 <Bold>

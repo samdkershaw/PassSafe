@@ -277,9 +277,6 @@
   <ItemGroup>
     <Resource Include="Resources\SplashScreen.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\facebook.png" />
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="SQLite.Interop.dll">
