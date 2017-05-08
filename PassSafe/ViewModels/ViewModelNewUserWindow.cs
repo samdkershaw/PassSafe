@@ -44,7 +44,7 @@ namespace PassSafe.ViewModels
             userInfo.Forename = this.Forename;
             userInfo.Surname = this.Surname;
             userInfo.EmailAddress = this.EmailAddress;
-            PasswordHasher hasher = new PasswordHasher();
+            MasterPasswordHasher hasher = new MasterPasswordHasher();
             hasher.HashPassword(Core.SecureStringToString(this.Password));
             userInfo.MasterPassword = hasher.HashedPassword;
             userInfo.PasswordHash = hasher.SaltValue;

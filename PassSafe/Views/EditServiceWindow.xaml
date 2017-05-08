@@ -19,7 +19,7 @@
                    DockPanel.Dock="Top"
                    Background="LightGray"
                    TextAlignment="Left"
-                   Text="{Binding Description}"
+                   Text="{Binding WindowDescription}"
                    TextWrapping="Wrap"/>
         <Border BorderBrush="#DDDDDD" BorderThickness="0,1,0,0" DockPanel.Dock="Top">
             <Grid Margin="0,10,0,0">
@@ -61,8 +61,12 @@
                 <TextBox Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" AcceptsReturn="True"
                          Text="{Binding SelectedService.Description}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5,5,5,5"/>
 
-                <Label Grid.Column="0" Grid.Row="5"
-                           Content="New Password" VerticalAlignment="Center" HorizontalAlignment="Right" />
+                <TextBlock Grid.Column="0" Grid.Row="5"
+                            VerticalAlignment="Center" HorizontalAlignment="Right" TextAlignment="Right" >
+                    <Run Text="New Password"/>
+                    <LineBreak/>
+                    <Italic><Run Foreground="Gray" Text="Blank for same password"/></Italic>
+                </TextBlock>
                 <Grid Grid.Column="1" Grid.Row="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="1*"/>

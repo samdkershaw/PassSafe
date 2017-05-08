@@ -24,15 +24,19 @@ namespace PassSafe
         //      # Google Sign In is valid
 
         //Windows
-        Views.SplashScreen splashScreen;
         Window childWindow;
-        
+        string[] colours = { "Red", "Blue", "Green", "Indigo" };
+
+
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
 
+            Random rand = new Random();
+            string colour = colours[rand.Next(0, colours.Length - 1)];
+
             ThemeManager.ChangeAppStyle(Current,
-                                        ThemeManager.GetAccent("Blue"),
+                                        ThemeManager.GetAccent(colour),
                                         ThemeManager.GetAppTheme("BaseLight"));
 
             Database db = new Database();
@@ -44,6 +48,7 @@ namespace PassSafe
                     if (db.IsReturningUser())
                     {
                         childWindow = new MainWindow();
+                        
                     } else
                     {
                         childWindow = new NewUserWindow();

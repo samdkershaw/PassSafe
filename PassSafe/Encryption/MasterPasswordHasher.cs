@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace PassSafe.Encryption
 {
-    public sealed class PasswordHasher
+    public sealed class MasterPasswordHasher
     {
         private const int SaltSize = 16;
         private const int HashSize = 20;

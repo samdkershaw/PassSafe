@@ -160,7 +160,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Data\Database.cs" />
-    <Compile Include="Encryption\PasswordHasher.cs" />
+    <Compile Include="Encryption\PasswordCipher.cs" />
+    <Compile Include="Encryption\MasterPasswordHasher.cs" />
     <Compile Include="Helpers\DateColourConverter.cs" />
     <Compile Include="Helpers\OpenWhenFocusedConverter.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />

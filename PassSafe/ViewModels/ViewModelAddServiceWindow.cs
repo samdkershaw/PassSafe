@@ -9,6 +9,7 @@ using System.Security;
 using System.Collections.ObjectModel;
 using System.Windows;
 using PassSafe.Views;
+using PassSafe.Encryption;
 
 namespace PassSafe.ViewModels
 {
@@ -122,7 +123,7 @@ namespace PassSafe.ViewModels
             service.UserName = this.LoginName;
             service.Email = this.EmailAddress;
             service.Website = this.Website;
-            service.HashedPassword = this.Password;
+            service.HashedPassword = PasswordCipher.Encrypt(this.Password, new UserInfo().MasterPassword);
             service.PasswordHash = "";
             service.Description = this.Description;
             service.LastUpdated = DateTime.Now;
