@@ -12,18 +12,22 @@ namespace PassSafe.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
+        // Called by properties in the ViewModel when they are changed, in order to alert
+        //  the View about these changes.
         protected bool SetProperty<T>(ref T storage, T value, [CallerMemberName] String propertyName = null)
         {
+            // Checks if value has actually changed or not.
             if (Equals(storage, value))
             {
                 return false;
             }
 
             storage = value;
-            this.OnPropertyChanged(propertyName);
+            this.OnPropertyChanged(propertyName); // Raise the PropertyChanged event.
             return true;
         }
 
+        // Alert the View to changes in the ViewModel.
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

@@ -14,12 +14,14 @@ namespace PassSafe.ViewModels
 {
     class ViewModelEditServiceWindow : ViewModelBase
     {
+        //Delegates, Actions and Collections
         public DelegateCommand SubmitCommand { get; private set; }
         public DelegateCommand GeneratePassword { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
         public Action CloseAction { get; set; }
         public ObservableCollection<string> ErrorsList { get; set; }
 
+        //Constructor that sets up the ViewModel.
         public ViewModelEditServiceWindow(Service selectedService)
         {
             this.SubmitCommand = new DelegateCommand(this.Submit);
@@ -30,6 +32,7 @@ namespace PassSafe.ViewModels
             this.SelectedService = selectedService;
         }
 
+        //Stores the Service currently being edited.
         Service _SelectedService;
         public Service SelectedService
         {
@@ -44,11 +47,13 @@ namespace PassSafe.ViewModels
             }
         }
 
+        //Calls the CloseAction Action.
         private void CloseWindow()
         {
             this.CloseAction();
         }
 
+        //Generates a new, strong password using the PasswordFactory.
         private void CreateSecurePassword()
         {
             this.Password = new PasswordFactory().Generate();
@@ -75,15 +80,19 @@ namespace PassSafe.ViewModels
             }
         }
 
+        //When the Submit button is clicked, this method is called.
         private void Submit()
         {
+            // Check that all of the fields have valid input.
             if (!IsInputValid())
                 return;
             Database db = new Database();
             
+            //Check if the password has changed or not.
             if (!String.IsNullOrEmpty(Password) && Password.Length > 0)
                 SelectedService.HashedPassword = PasswordCipher.Encrypt(Password, new UserInfo().MasterPassword);
             SelectedService.LastUpdated = DateTime.Now.AddHours(-1); // The time on PCs is one hour ahead for some reason.
+            //Attempt to update the service in the database, then close the window.
             if (db.UpdateService(SelectedService))
             {
                 Core.PrintDebug(String.Format("Service {0} updated successfully.", SelectedService.ServiceName));
@@ -91,15 +100,11 @@ namespace PassSafe.ViewModels
             }
             else
             {
+                //Show the errors to the user.
                 this.ErrorsList.Clear();
                 this.ErrorsList.Add("An error occured.");
                 this.Errors = true;
             }
-        }
-
-        private bool CanChangesBeSaved()
-        {
-            return false;
         }
 
         public string TitleText
@@ -129,6 +134,7 @@ namespace PassSafe.ViewModels
             }
         }
 
+        //Detects if each field in the window has valid input, and returns false if not.
         private bool IsInputValid()
         {
             this.ErrorsList.Clear();
