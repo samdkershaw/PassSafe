@@ -27,6 +27,16 @@ namespace PassSafe.Views
 
             ViewModelReEnterPasswordWindow vm = new ViewModelReEnterPasswordWindow();
             this.DataContext = vm;
+            if (vm.CloseAction == null)
+                vm.CloseAction = new Action(this.CloseAndOpen);
+        }
+
+        private void CloseAndOpen()
+        {
+            Properties.Settings.Default.LastLogin = DateTime.Now;
+            Properties.Settings.Default.Save();
+            new MainWindow().Show();
+            this.Close();
         }
 
         private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)

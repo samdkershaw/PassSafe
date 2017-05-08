@@ -18,10 +18,6 @@ namespace PassSafe
     /// </summary>
     public partial class App : Application
     {
-        // When the application is run, we need to decide which Window to open.
-        //  This will depend on a number of factors, including:
-        //      # First Run or not
-        //      # Google Sign In is valid
 
         //Windows
         Window childWindow;
@@ -45,12 +41,17 @@ namespace PassSafe
             {
                 if (db.DoesDatabaseExist())
                 {
+                    // Check whether the user exists in the database.
                     if (db.IsReturningUser())
                     {
-                        childWindow = new MainWindow();
-                        
+                        // Let the user log in if they only logged in in the last 5 minutes
+                        if (PassSafe.Properties.Settings.Default.LastLogin > DateTime.Now.AddMinutes(5))
+                            childWindow = new MainWindow();
+                        else //Otherwise, force password re-entry and Two-Factor Authentication.
+                            childWindow = new ReEnterPasswordWindow();
                     } else
                     {
+                        // The user doesn't have an account, so register them.
                         childWindow = new NewUserWindow();
                     }
                     childWindow.Show();

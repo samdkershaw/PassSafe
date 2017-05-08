@@ -38,24 +38,13 @@
                                Text="{Binding UserInfoHolder.Forename, StringFormat='Welcome, {0}'}" 
                                HorizontalAlignment="Center" FontSize="25" Foreground="White" 
                                FontWeight="DemiBold" Padding="0,10,0,50"/>
-                <TextBlock TextAlignment="Center" TextWrapping="Wrap"
-                           DockPanel.Dock="Bottom" VerticalAlignment="Center"
+            <TextBlock TextAlignment="Center" TextWrapping="Wrap"
+                           DockPanel.Dock="Bottom" VerticalAlignment="Bottom"
                            FontSize="20" FontWeight="DemiBold">
-                    <Hyperlink Foreground="WhiteSmoke" Command="{Binding OpenURL}" CommandParameter="settings">
-                        <Run Text="Settings" />
-                    </Hyperlink>
-                    <LineBreak/>
-                    <LineBreak/>
                     <Hyperlink Foreground="WhiteSmoke" Command="{Binding OpenURL}" CommandParameter="help">
                         <Run Text="Help" />
                     </Hyperlink>
-                    <LineBreak/>
-                    <LineBreak/>
-                    <Hyperlink Foreground="WhiteSmoke" Command="{Binding OpenURL}" CommandParameter="logout">
-                        <Run Text="Logout" />
-                    </Hyperlink>
-                    <LineBreak/>
-                </TextBlock>
+            </TextBlock>
 
             
         </DockPanel>

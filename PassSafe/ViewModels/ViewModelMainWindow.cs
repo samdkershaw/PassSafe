@@ -19,6 +19,7 @@ namespace PassSafe.ViewModels
         public DelegateCommand DeleteServiceCommand { get; private set; }
         public DelegateCommand ViewDetailsCommand { get; private set; }
         public DelegateCommand OpenURL { get; private set; }
+        public ViewDetailsWindow detailsWindow;
 
         public ViewModelMainWindow()
         {
@@ -129,7 +130,10 @@ namespace PassSafe.ViewModels
                 return;
             }
 
-            Core.PrintDebug("View Details");
+            if (detailsWindow != null && detailsWindow.IsEnabled)
+                detailsWindow.Close();
+            detailsWindow = new ViewDetailsWindow(SelectedService);
+            detailsWindow.Show();
         }
 
         private bool CanEditOrDelete()

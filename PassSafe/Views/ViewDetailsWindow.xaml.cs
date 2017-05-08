@@ -1,4 +1,6 @@
 ﻿using MahApps.Metro.Controls;
+using PassSafe.Models;
+using PassSafe.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +22,11 @@ namespace PassSafe.Views
     /// </summary>
     public partial class ViewDetailsWindow : MetroWindow
     {
-        public ViewDetailsWindow()
+        public ViewDetailsWindow(Service selectedService)
         {
             InitializeComponent();
+            ViewModelViewDetailsWindow vm = new ViewModelViewDetailsWindow(selectedService);
+            this.DataContext = vm;
         }
     }
 }

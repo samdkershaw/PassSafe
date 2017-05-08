@@ -7,6 +7,8 @@ using PassSafe.Models;
 using PassSafe.Views;
 using System.Collections.ObjectModel;
 using System.Security;
+using PassSafe.Data;
+using PassSafe.Encryption;
 
 namespace PassSafe.ViewModels
 {
@@ -63,56 +65,6 @@ namespace PassSafe.ViewModels
             }
         }
 
-        //string _ServiceName;
-        //public string ServiceName
-        //{
-        //    get { return _ServiceName; }
-        //    set
-        //    {
-        //        SetProperty(ref _ServiceName, value);
-        //    }
-        //}
-
-        //string _LoginName;
-        //public string LoginName
-        //{
-        //    get { return _LoginName; }
-        //    set
-        //    {
-        //        SetProperty(ref _LoginName, value);
-        //    }
-        //}
-
-        //string _EmailAddress;
-        //public string EmailAddress
-        //{
-        //    get { return _EmailAddress; }
-        //    set
-        //    {
-        //        SetProperty(ref _EmailAddress, value);
-        //    }
-        //}
-
-        //string _Website;
-        //public string Website
-        //{
-        //    get { return _Website; }
-        //    set
-        //    {
-        //        SetProperty(ref _Website, value);
-        //    }
-        //}
-
-        //string _Description;
-        //public string Description
-        //{
-        //    get { return _Description; }
-        //    set
-        //    {
-        //        SetProperty(ref _Description, value);
-        //    }
-        //}
-
         string _Password;
         public string Password
         {
@@ -125,7 +77,24 @@ namespace PassSafe.ViewModels
 
         private void Submit()
         {
+            if (!IsInputValid())
+                return;
+            Database db = new Database();
             
+            if (!String.IsNullOrEmpty(Password) && Password.Length > 0)
+                SelectedService.HashedPassword = PasswordCipher.Encrypt(Password, new UserInfo().MasterPassword);
+            SelectedService.LastUpdated = DateTime.Now.AddHours(-1); // The time on PCs is one hour ahead for some reason.
+            if (db.UpdateService(SelectedService))
+            {
+                Core.PrintDebug(String.Format("Service {0} updated successfully.", SelectedService.ServiceName));
+                this.CloseAction();
+            }
+            else
+            {
+                this.ErrorsList.Clear();
+                this.ErrorsList.Add("An error occured.");
+                this.Errors = true;
+            }
         }
 
         private bool CanChangesBeSaved()
@@ -164,7 +133,7 @@ namespace PassSafe.ViewModels
         {
             this.ErrorsList.Clear();
             bool serviceNameValid = false, loginNameValid = false, emailAddressValid = false,
-                websiteValid = false, passwordValid = false;
+                websiteValid = false;
 
             if (!String.IsNullOrEmpty(SelectedService.ServiceName))
                 serviceNameValid = true;
@@ -181,7 +150,7 @@ namespace PassSafe.ViewModels
             else
                 this.ErrorsList.Add("The email address was invalid");
 
-            if (!String.IsNullOrEmpty(SelectedService.Website) && Core.IsUrlAcceptable(SelectedService.Website))
+            if (!String.IsNullOrEmpty(SelectedService.Website) && (Core.IsUrlAcceptable(SelectedService.Website) || SelectedService.Website.StartsWith("www.")))
                 websiteValid = true;
             else
                 this.ErrorsList.Add("The website was invalid.");
@@ -190,13 +159,8 @@ namespace PassSafe.ViewModels
             if (String.IsNullOrEmpty(SelectedService.Description))
                 SelectedService.Description = "";
 
-            if (!String.IsNullOrEmpty(SelectedService.HashedPassword) && SelectedService.HashedPassword.Length >= 6)
-                passwordValid = true;
-            else
-                this.ErrorsList.Add("The password you entered was too short.");
-
             bool valid = serviceNameValid && loginNameValid && emailAddressValid
-                && websiteValid && passwordValid;
+                && websiteValid;
             this.Errors = !valid;
             return valid;
         }

@@ -33,5 +33,17 @@ namespace PassSafe.Properties {
                 return ((string)(this["PassSafeConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("05/08/2017 08:03:00")]
+        public global::System.DateTime LastLogin {
+            get {
+                return ((global::System.DateTime)(this["LastLogin"]));
+            }
+            set {
+                this["LastLogin"] = value;
+            }
+        }
     }
 }

@@ -118,7 +118,6 @@ namespace PassSafe.ViewModels
                 return;
             Database db = new Database();
             Service service = new Service();
-            //service.Id = -1;
             service.ServiceName = this.ServiceName;
             service.UserName = this.LoginName;
             service.Email = this.EmailAddress;
@@ -126,7 +125,7 @@ namespace PassSafe.ViewModels
             service.HashedPassword = PasswordCipher.Encrypt(this.Password, new UserInfo().MasterPassword);
             service.PasswordHash = "";
             service.Description = this.Description;
-            service.LastUpdated = DateTime.Now;
+            service.LastUpdated = DateTime.Now.AddHours(-1); // The time on PCs is one hour ahead for some reason.
             if (db.AddService(service))
             {
                 Core.PrintDebug(String.Format("Service {0} added successfully.", service.ServiceName));
@@ -158,12 +157,12 @@ namespace PassSafe.ViewModels
             if (!String.IsNullOrEmpty(EmailAddress) && Core.IsEmailAcceptable(EmailAddress))
                 emailAddressValid = true;
             else
-                this.ErrorsList.Add("The email address was invalid");
+                this.ErrorsList.Add("The email address is invalid");
 
-            if (!String.IsNullOrEmpty(Website) && Core.IsUrlAcceptable(Website))
+            if (!String.IsNullOrEmpty(Website) && (Core.IsUrlAcceptable(Website) || Website.StartsWith("www.")))
                 websiteValid = true;
             else
-                this.ErrorsList.Add("The website was invalid.");
+                this.ErrorsList.Add("The website is invalid.");
 
             // Description isn't required to have a value entered.
             if (String.IsNullOrEmpty(Description))

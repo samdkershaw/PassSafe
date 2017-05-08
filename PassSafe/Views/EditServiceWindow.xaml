@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PassSafe.Views"
         xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:vm="clr-namespace:PassSafe.ViewModels"
+        xmlns:helpers="clr-namespace:PassSafe.Helpers"
         mc:Ignorable="d" SizeToContent="Height" MinWidth="400" Width="400"
                       Background="#EDEDED"
                       Title="{Binding TitleText}"
@@ -14,6 +15,9 @@
         BorderThickness="1"
         BorderBrush="{DynamicResource AccentColorBrush}"
         TitleCaps="False">
+    <Window.Resources>
+        <helpers:VisibleWhenErrorsConverter x:Key="VisibleWhenErrorsConverter" x:Name="VisibleWhenErrorsConverter" />
+    </Window.Resources>
     <DockPanel LastChildFill="True">
         <TextBlock Padding="5,5,5,15"
                    DockPanel.Dock="Top"
@@ -75,9 +79,12 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
-                    <PasswordBox Grid.Row="0" Grid.Column="0"
-                        HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,5,0"/>
-                    <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Margin="5">Generate</Button>
+                    <PasswordBox helpers:PasswordHelper.Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Grid.Row="0" Grid.Column="0"
+                        HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                                 Margin="5,0,5,0" />
+                    <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch"
+                            Margin="5" Command="{Binding GeneratePassword}">Generate</Button>
                 </Grid>
 
                 <Label Grid.Column="0" Grid.Row="6"
@@ -90,8 +97,8 @@
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     DockPanel.Dock="Bottom">
-            <Button Command="{Binding SubmitCommand}" x:Name="submitBtn" Content="Save Changes" Margin="7" />
-            <Button Click="cancelBtn_Click" x:Name="cancelBtn" Content="Cancel"  Margin="7" />
+            <Button IsDefault="True" Command="{Binding SubmitCommand}" x:Name="submitBtn" Content="Save Changes" Margin="7" />
+            <Button IsCancel="True" Click="cancelBtn_Click" x:Name="cancelBtn" Content="Cancel"  Margin="7" />
         </StackPanel>
     </DockPanel>
 </Controls:MetroWindow>

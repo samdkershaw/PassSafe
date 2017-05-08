@@ -10,5 +10,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=passsafe.database.windows.net;Initial Catalog=PassSafe;User ID=samdkershaw</Value>
     </Setting>
+    <Setting Name="LastLogin" Type="System.DateTime" Scope="User">
+      <Value Profile="(Default)">05/08/2017 08:03:00</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
